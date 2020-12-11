@@ -1,5 +1,10 @@
 # dopp10
 
+NEXT MEETING: Sun 13.12 18:00h
+
+https://tuwien.zoom.us/j/5172562790
+
+
 #Deliverables
 - Jupyter notebook
 - 2-page pdf (management summary)
