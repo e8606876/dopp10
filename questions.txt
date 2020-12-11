@@ -1,0 +1,12 @@
+How has the use of nuclear energy evolved over time? 
+	- search for data for production of nuclear energy and consumption (electricity vs. total energy)
+	- differences between countries where electricity is produced and consumed
+	- 
+
+
+How well does the use of nuclear energy correlate with changes in carbon emissions? 
+	- necessity to correct for other influences (change in power consumption, constitution of energy soures etc.)
+	- interesting question: how does the advancement in power plant technologies (nuclear and other) change 
+
+
+Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?
