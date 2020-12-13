@@ -2,29 +2,46 @@ Tooling
 pycharm
 python 3.9
 shared github repository
+pycountry
 
 JFx Sun 18h zoom
 
 Week 1 (13-20.12)
-Get data and explore separately
-Review interim results together and refine questions
+Get data and explore data separately as follows
+- Engergy production and consumption (Josef) 
+- economical (GDP, growth, ...)  (Frank)
+- ecological data (CO2 emission, pollution, ...) (Felix)
+- political data (climate agreements, government, ...) (Johannes)
+- define country code / conversion (Johannes)
+Granularity: country (world-wide), year (approx 1945-2019)
+Review interim results together and refine questions 20.12.
+
+Common data structure:
+0: year
+1: country code
+3..: features
 
 Week 2 (21-27.12)
 Get data and explore separately
-Review interim results together and refine questions
+Review interim results together and refine questions 27.12.
+Refine planning
 
 Week 3 (28-3.1)
 Finalize exploration
 Decide on final four main questions and related dataset(s)
+Refine planning
 
 Week 4 (4-10.1)
 Model data and find answers
+Refine planning
 
 Week 5 (11-17.1)
 Report and visualize (coropleth map with time slider, time series, ...)
+Refine planning
 
 Week 6 (18-24.1)
 Create final deliveries
-Jupyter notebook
-2-page pdf summary (tex document)
-presentation
+Jupyter notebook (Josef)
+2-page pdf summary (tex document) (Frank)
+presentation (Felix, Johannes)
+
