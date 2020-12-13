@@ -1,13 +1,21 @@
 \documentclass[a4paper,12pt]{article}
 \pagestyle{plain}
-\usepackage[left=2.5cm,right=2.5cm,top=1cm,bottom=3cm]{geometry}
+\usepackage[left=2.5cm,right=2.5cm,top=0cm,bottom=1cm]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyphenat}
 
-\author{Felix Korbelius 01526132\\Frank Ebel 01429282\\Josef Glas 08606876\\Johannes Schabbauer 11776224}
-\title{Work Plan Group 10}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,     
+	urlcolor=blue,
+}
+
+
+\author{Felix Korbelius 01526132, Frank Ebel 01429282,  Johannes Schabbauer 11776224\\Josef Glas 08606876}
+\title{Work Plan Group 10\\Question 20}
 %\date{2020-12-13}
 
 
@@ -17,19 +25,35 @@
 
 \maketitle
 
-\section*{Question 20}
-
-How has the use of nuclear energy evolved over time? How well does the use of nuclear energy correlate with changes in carbon emissions? Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?
-
 
 \section*{Questions we plan to answer}
 
+	\subsection*{How has the use of nuclear energy evolved over time?}
+	First we want to use descriptive statistics to describe the nuclear energy usage (creation/consumption) of countries over the years. We want to see if there is a correlation between energy imports/exports. We also want to find out if/how policies, treaties, agreements changed the usage (nuclear phaseout after Fukushima 2011, Kyoto Protocol, Paris Agreement, ...)
+	
+	\subsection*{How well does the use of nuclear energy correlate with changes in carbon emissions?}
+	We want to compare the total/relative nuclear energy creation of a country against its carbon emissions. Maybe we need to normalize the data per capita.  A possible exploration would be if countries with nuclear power plants generate less electricity via renewable energy sources? 
+	
+	\subsection*{ Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?}
 
+	
 \section*{Datasets we intend to use}
-
+	\begin{itemize}
+		\item
+			\href{https://www.eia.gov/international/data/world}{US Energy Information Administration}
+		
+		\item
+			\href{https://ourworldindata.org/grapher/energy-consumption-by-source-and-region?tab=table&time=earliest..latest}{Our World in Data energy consumption}
+		
+		\item
+			\href{https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html}{bp, Statistical Review of World Energy}
+		
+		\item
+			\href{https://ourworldindata.org/grapher/nuclear-renewables-electricity?time=1985..latest}{Share of nuclear in electricity production}
+	\end{itemize}
+	
 
 \section*{Work allocation}
-
 
 
 \end{document}
