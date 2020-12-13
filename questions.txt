@@ -16,6 +16,9 @@ Are there characteristics of a country that correlate with increases or decrease
 	- possession of nuclear weapons?
 	- availability and operation of other energy sources in the country (e.g. geographic features like mountains, big rivers, intensity of solar radiation, coal and petrol deposits)
 		e.g. coal deposits in Poland, hydro power plants in Austria due to mountains...
+	- Fukushima 2011 and political reasons?
+		https://ourworldindata.org/grapher/annual-change-nuclear
+	
 
 Datasets:
 	- U.S. Energy Information Administration: https://www.eia.gov/international/data/world
@@ -23,6 +26,15 @@ Datasets:
 	- bp, Statistical Review of World Energy: https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html
 		data for different types of production (incl. nuclear) per country and year (since 1965)
 		data can be downloaded in cvs and excel
+	- Our World in Data: https://ourworldindata.org/nuclear-energy
+		csv available
+	- share of nuclear vs total energy production by country over years (question 1)
+		https://ourworldindata.org/grapher/nuclear-renewables-electricity?tab=table&time=1985..latest
+		below there are a lot of datasets regarding energy
+	- import/export of energy (question 1)
+		https://ourworldindata.org/grapher/energy-imports-and-exports-energy-use
+	- nuclear wepons (question 3)
+		https://ourworldindata.org/nuclear-weapons
 	
 	Other Sources:
 	- World Nuclear Association: https://www.world-nuclear.org/Information-Library.aspx
@@ -35,7 +47,8 @@ Datasets:
 		some information publicly available, but datasets must be purchased for access
 	- UN Energy Statistics: https://unstats.un.org/unsd/energystats/data/
 		not for free
-	
+	Our World in Data Nuclear Energy page:
+		https://ourworldindata.org/nuclear-energy
 	
 	
 	
