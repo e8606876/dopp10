@@ -3,7 +3,7 @@ pycharm
 python 3.9
 shared github repository
 
-
+JFx Sun 18h zoom
 
 Week 1 (13-20.12)
 Get data and explore separately
@@ -21,15 +21,10 @@ Week 4 (4-10.1)
 Model data and find answers
 
 Week 5 (11-17.1)
-Report and visualize
-- coropleth map
-- ...
-
+Report and visualize (coropleth map with time slider, time series, ...)
 
 Week 6 (18-24.1)
 Create final deliveries
 Jupyter notebook
 2-page pdf summary (tex document)
 presentation
-
-
