@@ -21,7 +21,7 @@ Week 4 (4-10.1)
 Model data and find answers
 
 Week 5 (11-17.1)
-Report and visualize (coropleth map, ...)
+Report and visualize (coropleth map with time slider, time series, ...)
 
 Week 6 (18-24.1)
 Create final deliveries
