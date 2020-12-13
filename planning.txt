@@ -1,0 +1,35 @@
+
+Tooling
+pycharm
+python 3.9
+shared github repository
+
+
+
+Week 1 (13-20.12)
+Get data and explore separately
+Review interim results together and refine questions
+
+Week 2 (21-27.12)
+Get data and explore separately
+Review interim results together and refine questions
+
+Week 3 (28-3.1)
+Finalize exploration
+Decide on final four main questions and related dataset(s)
+
+Week 4 (4-10.1)
+Model data and find answers
+
+Week 5 (11-17.1)
+Report and visualize
+
+
+
+Week 6 (18-24.1)
+Create final deliveries
+Jupyter notebook
+2-page pdf summary (tex document)
+presentation
+
+
