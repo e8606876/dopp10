@@ -34,10 +34,12 @@ Datasets:
 		below there are a lot of datasets regarding energy
 	- import/export of energy (question 1)
 		https://ourworldindata.org/grapher/energy-imports-and-exports-energy-use
-	- nuclear wepons (question 3)
+	- nuclear weapons (question 3)
 		https://ourworldindata.org/nuclear-weapons
 	- World Bank Databank: https://databank.worldbank.org/home.aspx
 		--> Numerous world development indicators: https://databank.worldbank.org/source/world-development-indicators/preview/on
+	- Organisation for economic co-operation and development: https://stats.oecd.org/
+		e.g. environmental data and projections
 	
 	Other Sources:
 	- World Nuclear Association: https://www.world-nuclear.org/Information-Library.aspx
