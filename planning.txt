@@ -22,7 +22,7 @@ Common data structure:
 3..: features
 
 Week 2 (21-27.12)
-Get data and explore separately
+Explore combined datasets from different categories
 Review interim results together and refine questions 27.12.
 Refine planning
 

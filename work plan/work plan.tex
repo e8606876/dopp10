@@ -1,6 +1,7 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,10pt]{scrartcl}
 \pagestyle{plain}
-\usepackage[left=2.5cm,right=2.5cm,top=0cm,bottom=1cm]{geometry}
+%\usepackage[left=2.5cm,right=2.5cm,top=1cm,bottom=1cm]{geometry}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -14,9 +15,10 @@
 }
 
 
-\author{Felix Korbelius 01526132, Frank Ebel 01429282,  Johannes Schabbauer 11776224\\Josef Glas 08606876}
-\title{Work Plan Group 10\\Question 20}
-%\date{2020-12-13}
+\author{Frank Ebel 01429282, Josef Glas 08606876\\Felix Korbelius 01526132, Johannes Schabbauer 11776224}
+\title{\vspace*{-1cm}Work Plan DOPP Exercise 3}
+\subtitle{Group 10, Question 20}
+\date{}
 
 
 
@@ -24,36 +26,94 @@
 \begin{document}
 
 \maketitle
+\vspace*{-1cm}
 
 
-\section*{Questions we plan to answer}
+\section*{Follow-up questions we want to answer in this project}
 
-	\subsection*{How has the use of nuclear energy evolved over time?}
-	First we want to use descriptive statistics to describe the nuclear energy usage (creation/consumption) of countries over the years. We want to see if there is a correlation between energy imports/exports. We also want to find out if/how policies, treaties, agreements changed the usage (nuclear phaseout after Fukushima 2011, Kyoto Protocol, Paris Agreement, ...)
+\begin{enumerate}
+\item{How has the use of nuclear energy evolved over time?}
+
+	\begin{itemize}
+	\item What is the constitution of primary energy sources (nuclear, coal, natural gas, renewables etc.) for the production of electric energy in different countries and how have these numbers evolved over time?
+	\item Are there big discrepancies between \emph{production} and \emph{consumption} for the constitution of electric energy in some countries?
+	\item How does the share of nuclear energy change, if all usage of energy (heating, transport etc.) are considered?
+	\item What is the main cause of changes in the nuclear energy output, i.e. building/decommissioning of reactors or a increased/decreased output of existing reactors?
+	\item Are there changes in the usage of nuclear energy that can be linked to some trigger, e.g. disasters (Chernobyl, Fukushima, Three Mile Island), political agreements and international treaties (Kyoto Protocol, Paris Agreement) or breakthroughs in the development of alternative energy sources (like solar)?
+	\end{itemize}
+
+
+\item{How well does the use of nuclear energy correlate with changes in carbon emissions?}
 	
-	\subsection*{How well does the use of nuclear energy correlate with changes in carbon emissions?}
-	We want to compare the total/relative nuclear energy creation of a country against its carbon emissions. Maybe we need to normalize the data per capita.  A possible exploration would be if countries with nuclear power plants generate less electricity via renewable energy sources? 
+	\begin{itemize}
+	\item Are there discrepancies if the CO$_2$-emissions are compared to the \emph{production} or \emph{consumption} or nuclear energy? 
+	\item Is it necessary to calculate these values per capita?
+	\item For countries that have a high usage of nuclear energy, it this rather at the expense of fossil fuels or renewable energy sources? If a trend exists, can it be linked to CO$_2$-emissions of those countries?
+	\end{itemize}	
 	
-	\subsection*{ Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?}
+\item{Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?}
+
+	\begin{itemize}
+	\item Are there economic indicators (GDP, GDP per capita, inflation) that correlate with the usage of nuclear energy?
+	\item Is there connection between the usage of nuclear energy as energy source and the the possession of nuclear weapons or the funding of research reactors?
+	\item Could the independence from nuclear energy of some countries be caused by availability of geographic features that are used for energy production (coal or petrol deposits, high solar intensity, mountains with many streams etc.)? This question could be quite difficult to answer in detail, because one first has to define comparable values of utility to a diverse variety of features.
+	\end{itemize}
+
+\end{enumerate}
+
 
 	
-\section*{Datasets we intend to use}
+\section*{Available datasets for (nuclear) energy}
 	\begin{itemize}
 		\item
 			\href{https://www.eia.gov/international/data/world}{US Energy Information Administration}
 		
 		\item
-			\href{https://ourworldindata.org/grapher/energy-consumption-by-source-and-region?tab=table&time=earliest..latest}{Our World in Data energy consumption}
-		
-		\item
 			\href{https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html}{bp, Statistical Review of World Energy}
 		
-		\item
-			\href{https://ourworldindata.org/grapher/nuclear-renewables-electricity?time=1985..latest}{Share of nuclear in electricity production}
 	\end{itemize}
 	
 
-\section*{Work allocation}
+\section*{Work plan and allocation}
 
+\begin{description}
+
+\item[Week 1 (13-20.12)]
+Get data, load it to pandas and explore (validate, clean) data separately for the categories 
+\emph{Energy production and consumption} (Josef), 
+\emph{economical (GDP, growth, ...)} (Frank),
+\emph{ecological data (CO$_2$-emission, pollution, ...)} (Felix),
+\emph{political data (climate agreements, government, ...)} (Johannes).
+
+Common data structure: 0-year, 1-country code, 2$_+$-features.
+Define country code and convert (expected) non-uniform naming conventions to ISO code (Johannes).
+Review interim results together and refine questions 20.12.
+
+
+\item[Week 2 (21-27.12)]
+Explore combined datasets from different categories.
+Review interim results together and refine questions 27.12.
+Refine planning.
+
+\item[Week 3 (28-3.1)]
+Finalize exploration.
+Decide on final four main questions and related dataset(s).
+Refine planning.
+
+\item[Week 4 (4-10.1)]
+Model data and find answers.
+Refine planning.
+
+\item[Week 5 (11-17.1)]
+Report and visualize (coropleth map with time slider, time series, ...).
+Refine planning.
+
+\item[Week 6 (18-24.1)]
+Create final deliveries.
+Jupyter notebook (Josef),
+2-page pdf summary (tex document) (Frank),
+presentation (Felix, Johannes).
+
+\end{description}
 
 \end{document}
