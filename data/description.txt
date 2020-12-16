@@ -1,0 +1,11 @@
+Nuclear Warheads
+	File: nuclear_warheads_1945_2016.csv
+	Source: https://data.world/datagraver/nuclear-warheads-per-country
+	
+Worldwide Governance Indicators (WGI)
+	File: wgidataset.xlsx
+	Source: http://info.worldbank.org/governance/wgi/
+	
+ Gross domestic expenditure on R&D (GERD), GERD as a percentage of GDP
+ 	File: SCN_DS_16122020083400698.csv
+ 	Source: http://data.uis.unesco.org/#
