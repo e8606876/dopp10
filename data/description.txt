@@ -6,6 +6,14 @@ Worldwide Governance Indicators (WGI)
 	File: wgidataset.xlsx
 	Source: http://info.worldbank.org/governance/wgi/
 	
- Gross domestic expenditure on R&D (GERD), GERD as a percentage of GDP
+Gross domestic expenditure on R&D (GERD), GERD as a percentage of GDP
  	File: SCN_DS_16122020083400698.csv
  	Source: http://data.uis.unesco.org/#
+ 	
+Nuclear Power Accidents (Deaths and Costs):
+	File: C_id_35_NuclearPowerAccidents2016.csv
+	Source: https://data.world/rebeccaclay/nuclear-power-accidents
+
+The Global State of Democracy Indices
+	File: gsodi_pv_4.csv
+	Source: https://www.idea.int/gsod-indices/dataset-resources
