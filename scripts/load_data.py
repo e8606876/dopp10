@@ -83,3 +83,4 @@ def load_political_data():
 if __name__=='__main__':
     df = load_political_data()
     
+    
