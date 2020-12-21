@@ -17,3 +17,7 @@ Nuclear Power Accidents (Deaths and Costs):
 The Global State of Democracy Indices
 	File: gsodi_pv_4.csv
 	Source: https://www.idea.int/gsod-indices/dataset-resources
+
+GDP (current US$)
+	Folder: API_NY.GDP.MKTP.CD_DS2_en_csv_v2_1740389
+	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&start=1960&view=chart
