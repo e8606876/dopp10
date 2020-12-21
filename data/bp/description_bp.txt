@@ -1,0 +1,21 @@
+bp, Statistical Review of World Engergy
+    Source: https://www.bp.com/en/global7corporate/entergy-economics/statistical-review-of-world-energy.html
+
+- complex xls, many workbooks
+- only country names, no country iso codes
+- all main countries available, but often aggregations used for smaller (not significant) countries
+like: "Other South America"
++ time range variable (not consistent ranges) mostly 1965-2019
++ figures in exajoules
++ dimensions
+-- primary energy (consumption)
+-- carbon dioxide emissions
+-- oil (production, consumption, ...)
+-- gas (production, consumption, ...)
+-- coal (production, consumption, prices, ...)
+-- nuclear energy (generation, consumption)
+-- hydroelectricity
+-- Renewables (generation, consumption, ...)
+-- electricity generation (by fuel, from oil, from gas, ...)
+-- renewable energy (installed capacity)
+

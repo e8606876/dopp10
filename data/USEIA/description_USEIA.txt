@@ -1,0 +1,15 @@
+U.S. Energy Information Administration
+    https://www.eia.gov/international/data/world
+
++ more simple csv (split among various files possible)
++ granularity: country iso codes (no aggregations)
++ time range consistent 1980-2018
++ figures in quadrillion btu (british thermal unit) = 10^15 ("in Billiarden")
++ dimensions (production & consumption)
+-- coal
+-- natural gas
+-- petroleum and other liquids
+-- nuclear
+-- renewables and other
+
+
