@@ -19,11 +19,13 @@ Review interim results together and refine questions 20.12.
 Common data structure:
 0: year
 1: country code
-3..: features
+2..: features
 
 Week 2 (21-27.12)
-Explore combined datasets from different categories
-Review interim results together and refine questions 27.12.
+Explore, clean datasets (unifiy country codes, handle missing values and outliers)
+Columns: [0]: year, [1]: country, [2:]: features (most relevant, simplified names)
+Upload cleaned up python script to GitHub --> scripts, upload raw data --> data (with references).
+Review interim results together 27.12. 18:00.
 Refine planning
 
 Week 3 (28-3.1)
