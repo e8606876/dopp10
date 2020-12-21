@@ -1,5 +1,5 @@
 bp, Statistical Review of World Engergy
-    Source: https://www.bp.com/en/global7corporate/entergy-economics/statistical-review-of-world-energy.html
+    Source: https://www.bp.com/en/global/corporate/entergy-economics/statistical-review-of-world-energy.html
 
 - complex xls, many workbooks
 - only country names, no country iso codes
