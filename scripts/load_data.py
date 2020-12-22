@@ -6,6 +6,9 @@ import numpy as np
 import pandas as pd
 import country_converter
 import logging
+import requests
+import re
+import os
 
 # initialize CountryConverter as cc and disable warnings
 country_converter.logging.getLogger().setLevel(logging.CRITICAL)
@@ -73,14 +76,67 @@ def load_political_data():
     # exclude regions (and east germany)
     democracy = democracy[democracy['country'].apply(len) ==3]
     democracy = democracy.set_index(['year', 'country'])
+    
+    # cleaning and fill missing values
+    warheads = warheads.fillna(value=0)
+    #research = research.unstack().interpolate().stack()
 
     # return merged dataframe
     return research.join(democracy,how='outer').join(warheads, how='outer').join(accidents, how='outer')
 
+def load_reactor_numbers():
+    # loading number of operational nuclear power plants from IAEA-PRIS database (public version)
+    
+    # if data was already loaded from webpages, read directly from saved csv file
+    if os.path.isfile('../data/reactor_numbers_PRIS_IAEA.csv'):
+        reactors = pd.read_csv('../data/reactor_numbers_PRIS_IAEA.csv')
+        return reactors
+    
+    # create containers for reactor data per country
+    startup_dict=dict()
+    shutdown_dict=dict()
+    for ISO in cc.ISO2['ISO2']:
+        startup_dict[ISO] = np.empty(shape=0, dtype='int')
+        shutdown_dict[ISO] = np.empty(shape=0, dtype='int')
 
+    # fetch table for reactors from public webpage
+    url = 'https://pris.iaea.org/PRIS/CountryStatistics/ReactorDetails.aspx?current='
+    for num in range(1000): # manual maximal id of reactor
+        page = requests.get(url+str(num))
+        if page.status_code < 400: # exclude non-existing IDs
+            # find country (ISO2) in html and load tables from page
+            country = re.findall('[\d\D]*color="DarkGray"', str(page.content))[0][-26:-24]
+            page_df = pd.read_html(page.content)
+            if len(page_df) < 3: # exclude reactor that was never started
+                continue
+            # get year of startup
+            if page_df[0].iloc[6,1]=='Commercial Operation Date':
+                # if 'Commercial Operation Date' is not given (NaN), use 'First Grid Connection'
+                if type(page_df[0].iloc[7,1]) != 'str':
+                        startup_dict[country] = np.append(startup_dict[country], int(page_df[0].iloc[7,0][-4:]))
+                else:
+                    startup_dict[country] = np.append(startup_dict[country], int(page_df[0].iloc[7,1][-4:]))
+            # get year of reactor shutdown (if given)
+            if page_df[0].iloc[8,0]=='Permanent Shutdown Date':
+                shutdown_dict[country] = np.append(shutdown_dict[country], int(page_df[0].iloc[9,0][-4:]))
+    
+    # calculate operating reactors from startup and shutdown dates
+    # of each reactor (from dicts) for each country per year
+    reactors = pd.DataFrame()
+    for ISO in cc.ISO2['ISO2']:
+        reactors_country = pd.DataFrame()
+        reactors_country['year'] = np.arange(1945,2021)
+        reactors_country['country'] = np.full(shape=reactors_country.shape[0], fill_value=ISO)
+        reactors_country['built_reactors'] = np.fromiter((startup_dict[ISO][startup_dict[ISO] <= year].size for year in reactors_country['year'] ),dtype='int')
+        reactors_country['shutdown_reactors'] = np.fromiter((shutdown_dict[ISO][shutdown_dict[ISO] <= year].size for year in reactors_country['year'] ),dtype='int')
+        reactors_country['operating_reactors'] = reactors_country['built_reactors'] - reactors_country['shutdown_reactors']
+        reactors = pd.concat([reactors, reactors_country],axis=0)
+    # save DataFrame to csv-file, to fetch data not everytime
+    reactors.to_csv('../data/reactor_numbers_PRIS_IAEA.csv')
+    return reactors
 
 # main function for testing
 if __name__=='__main__':
-    df = load_political_data()
-    
+    political = load_political_data()
+    reactors = load_reactor_numbers()
     
