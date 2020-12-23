@@ -1,7 +1,8 @@
 Number of Operating Nuclear Reactors
 	File: reactor_numbers_PRIS_IAEA.csv
 	Source: https://pris.iaea.org/PRIS/CountryStatistics/CountryStatisticsLandingPage.aspx
-	Features: year, country (ISO2), bulit reactors (vis Commercial Operating Date), decommissioned reactors (via Permanent Shutdown Date), operating reactors (difference) 
+	Features: year, country (those with an operating reactor at any time),
+	 	  bulit reactors (vis Commercial Operating Date), decommissioned reactors (via Permanent Shutdown Date), operating reactors (difference) 
 
 Nuclear Warheads
 	File: nuclear_warheads_1945_2016.csv
