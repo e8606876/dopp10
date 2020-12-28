@@ -31,12 +31,13 @@ def resize_emission(df):
     return:
     trimmed down and somewhat ordered emission_data."""
     data_emission_i = df.copy()
-    # Only keep countries (check len(country_code) == 3) - raw data contains continental data, etc. with a blank country code (i.e. length 0).
+    # Only keep countries (check len(country_code) == 3) - raw data contains continental data, etc. with a blank
+    # country code (i.e. length 0).
     data_emission_i = data_emission_i[data_emission_i['country_code'].str.len() == 3]
     # Set index on country_code and year (group by country_code).
     data_emission_i = data_emission_i.set_index(['country_code', 'year'])
     # Keep most interesting columns:
-    data_emission_i = data_emission_i.drop(['gdp', 'population'], axis=1)
+    data_emission_i = data_emission_i.drop(['gdp', 'population', 'energy_per_gdp', 'energy_per_capita', 'primary_energy_consumption'], axis=1)
     return data_emission_i
 
 
