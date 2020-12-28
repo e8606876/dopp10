@@ -29,4 +29,28 @@ Nuclear Power Accidents (Deaths and Costs):
 The Global State of Democracy Indices
 	File: gsodi_pv_4.csv
 	Source: https://www.idea.int/gsod-indices/dataset-resources
-	Features: see https://www.idea.int/gsod-indices/sites/default/files/idea-gsodi-2019-codebook-v3.pdf
+  Features: see https://www.idea.int/gsod-indices/sites/default/files/idea-gsodi-2019-codebook-v3.pdf
+
+GDP (current US$)
+	Folder: API_NY.GDP.MKTP.CD_DS2_en_csv_v2_1740389
+	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
+	
+GDP growth (annual %)
+	Folder: API_NY.GDP.MKTP.KD.ZG_DS2_en_csv_v2_1836177
+	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG
+	
+GDP per capita (current US$)
+	Folder: API_NY.GDP.PCAP.CD_DS2_en_csv_v2_1740213
+	Source: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
+	
+GDP per capita growth (annual %)	
+	Folder: API_NY.GDP.PCAP.KD.ZG_DS2_en_csv_v2_1740284
+	Source: https://data.worldbank.org/indicator/NY.GDP.PCAP.KD.ZG
+	
+Adjusted net national income per capita (current US$)	
+	Folder: API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486
+	Source: https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.CD
+
+Adjusted net national income per capita (annual % growth)
+	Folder: API_NY.ADJ.NNTY.PC.KD.ZG_DS2_en_csv_v2_1745488
+	Source: https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.KD.ZG
