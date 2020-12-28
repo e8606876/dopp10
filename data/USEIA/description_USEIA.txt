@@ -5,11 +5,26 @@ U.S. Energy Information Administration
 + granularity: country iso codes (no aggregations)
 + time range consistent 1980-2018
 + figures in quadrillion btu (british thermal unit) = 10^15 ("in Billiarden")
-+ dimensions (production & consumption)
++ dimensions
+-- consumption
 -- coal
 -- natural gas
 -- petroleum and other liquids
 -- nuclear
 -- renewables and other
+
+++ production
+++ coal
+++ natural gas
+++ petroleum and other liquids
+++ nuclear
+++ renewables and other
+
+REMARK: use either bp or useia
+Merging is not recommended due to following differences
+- figures are slightly different, reason is not clear, different measures (btu vs joule) have been considered
+- breakdown into types of energy also different
+
+
 
 
