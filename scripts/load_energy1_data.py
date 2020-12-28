@@ -32,7 +32,7 @@ def load_bp_data():
     data = data.drop(columns=['oilprod_mt'])
 
     # replace NaN with 0
-    data = data.fillna(0)
+    # data = data.fillna(0)
 
     return data
 

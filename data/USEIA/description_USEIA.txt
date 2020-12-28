@@ -21,6 +21,7 @@ U.S. Energy Information Administration
 ++ renewables and other
 
 REMARK: use either bp or useia
+Decision: continue with USEIA -> load_energy2_data.py
 Merging is not recommended due to following differences
 - figures are slightly different, reason is not clear, different measures (btu vs joule) have been considered
 - breakdown into types of energy also different
