@@ -25,3 +25,11 @@ GDP (current US$)
 GDP growth (annual %)
 	Folder: API_NY.GDP.MKTP.KD.ZG_DS2_en_csv_v2_1836177
 	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?end=2019&start=1960&view=chart
+	
+GDP per capita (current US$)
+	Folder: API_NY.GDP.PCAP.CD_DS2_en_csv_v2_1740213
+	Source: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
+	
+GDP per capita growth (annual %)	
+	Folder: API_NY.GDP.PCAP.KD.ZG_DS2_en_csv_v2_1740284
+	Source: https://data.worldbank.org/indicator/NY.GDP.PCAP.KD.ZG
