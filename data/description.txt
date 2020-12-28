@@ -21,3 +21,7 @@ The Global State of Democracy Indices
 GDP (current US$)
 	Folder: API_NY.GDP.MKTP.CD_DS2_en_csv_v2_1740389
 	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&start=1960&view=chart
+	
+GDP growth (annual %)
+	Folder: API_NY.GDP.MKTP.KD.ZG_DS2_en_csv_v2_1836177
+	Source: https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?end=2019&start=1960&view=chart

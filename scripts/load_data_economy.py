@@ -33,8 +33,3 @@ if __name__ == '__main__':
     df = load_economical_data()
 
     print(df.info())
-
-
-
-
-
