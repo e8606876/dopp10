@@ -28,6 +28,11 @@ def load_emission_data():
 def resize_emission(df):
     """ Index dataframe and eliminate non-country specific data.
 
+    Attention: When handling NaN values look at the values of a specific column, if there exists a NaN value
+    above/below a 0 entry, it is highly possible that NaN are truly missing values.
+
+    Time-range: 1980-2018
+
     return:
     trimmed down and somewhat ordered emission_data."""
     data_emission_i = df.copy()
@@ -35,13 +40,14 @@ def resize_emission(df):
     # country code (i.e. length 0).
     data_emission_i = data_emission_i[data_emission_i['country_code'].str.len() == 3]
     # Set index on country_code and year (group by country_code).
-    data_emission_i = data_emission_i.set_index(['country_code', 'year'])
+    # data_emission_i = data_emission_i.set_index(['country_code', 'year'])
     # Keep most interesting columns:
-    data_emission_i = data_emission_i.drop(['gdp', 'population', 'energy_per_gdp', 'energy_per_capita', 'primary_energy_consumption'], axis=1)
+    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:], axis=1)
     return data_emission_i
 
+# TODO: count countries
 
 if __name__ == '__main__':
     """ Main program. """
     data_emission = resize_emission(load_emission_data())
-    b = 0
+    b = 0   # placeholder for dataframe visualization via debugger
