@@ -1,21 +1,35 @@
 bp, Statistical Review of World Engergy
-    Source: https://www.bp.com/en/global7corporate/entergy-economics/statistical-review-of-world-energy.html
+    Source: https://www.bp.com/en/global/corporate/energy-economics/statistical-review-of-world-energy.html
 
-- complex xls, many workbooks
-- only country names, no country iso codes
+- complex xls, many workbooks, but also csv available
 - all main countries available, but often aggregations used for smaller (not significant) countries
 like: "Other South America"
 + time range variable (not consistent ranges) mostly 1965-2019
 + figures in exajoules
 + dimensions
--- primary energy (consumption)
--- carbon dioxide emissions
--- oil (production, consumption, ...)
--- gas (production, consumption, ...)
--- coal (production, consumption, prices, ...)
--- nuclear energy (generation, consumption)
--- hydroelectricity
--- Renewables (generation, consumption, ...)
--- electricity generation (by fuel, from oil, from gas, ...)
--- renewable energy (installed capacity)
 
+attributes (columns) used from csv
+
+name -> description
+
+co2_mtco2 -> carbon dioxide emissions in mt
+-- coalcons_ej -> coal consumption in ej
+++ coalprod_ej -> coal production in ej
+-- gascons_ej -> gas consumption in ej
+++ gasprod_ej -> gas production in ej
++- hydro_ej -> hydroelectricity production (= consumption) in ej
++- nuclear_ej -> nuclear energy production (= consumption) in ej
+-- oilcons_ej -> oil consumption in ej
+++ oilprod_mt -> oil production in mt (to be transformed in exajoule) -> oilprod_ej
++- renewables_ej -> renewable energy production (= consumption) in ej
+
+totals to be calculated later
+-- primary_cons_ej (all consumption values)
+++ primary_prod_ej (all production values)
+
+1 exajoule = 1 quintillion joules = 0.948 quadrillion btu
+1 million tonne of oil = 39.683 trillion btu = 0.039683 quadrillion btu = 0.0418597 exajoule
+
+ej ... exajule
+mt ... million tonnes
+renewables, hydro, nuclear ... consumption based on generation not accounting cross-border electricity supply

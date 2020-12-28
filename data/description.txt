@@ -1,22 +1,35 @@
+Number of Operating Nuclear Reactors
+	File: reactor_numbers_PRIS_IAEA.csv
+	Source: https://pris.iaea.org/PRIS/CountryStatistics/CountryStatisticsLandingPage.aspx
+	Features: year, country (those with an operating reactor at any time),
+	 	  bulit reactors (vis Commercial Operating Date), decommissioned reactors (via Permanent Shutdown Date), operating reactors (difference) 
+
 Nuclear Warheads
 	File: nuclear_warheads_1945_2016.csv
 	Source: https://data.world/datagraver/nuclear-warheads-per-country
-	
-Worldwide Governance Indicators (WGI)
-	File: wgidataset.xlsx
-	Source: http://info.worldbank.org/governance/wgi/
+	Features: first column year, then one column for each country with nuclear weapons
 	
 Gross domestic expenditure on R&D (GERD), GERD as a percentage of GDP
  	File: SCN_DS_16122020083400698.csv
  	Source: http://data.uis.unesco.org/#
+	Features: different indicators (described in 2nd column)
  	
 Nuclear Power Accidents (Deaths and Costs):
 	File: C_id_35_NuclearPowerAccidents2016.csv
 	Source: https://data.world/rebeccaclay/nuclear-power-accidents
+	Features: 	Date
+			Location
+			Cost (millions 2013US$)
+			INES (International Nuclear and Radiological Event Scale)
+			Smyth Magnitude 
+			Region
+			Description
+			Fatalities
 
 The Global State of Democracy Indices
 	File: gsodi_pv_4.csv
 	Source: https://www.idea.int/gsod-indices/dataset-resources
+  Features: see https://www.idea.int/gsod-indices/sites/default/files/idea-gsodi-2019-codebook-v3.pdf
 
 GDP (current US$)
 	Folder: API_NY.GDP.MKTP.CD_DS2_en_csv_v2_1740389

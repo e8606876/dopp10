@@ -1,6 +1,6 @@
 # dopp10
 
-NEXT MEETING: Mon 21.12 18:00h
+NEXT MEETING: Mon 28.12 18:00h
 
 https://tuwien.zoom.us/j/5172562790
 
