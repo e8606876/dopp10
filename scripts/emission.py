@@ -42,10 +42,9 @@ def resize_emission(df):
     # Set index on country_code and year (group by country_code).
     # data_emission_i = data_emission_i.set_index(['country_code', 'year'])
     # Keep most interesting columns:
-    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:], axis=1)
+    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:-2], axis=1).drop(['gdp'], axis=1)
     return data_emission_i
 
-# TODO: count countries
 
 if __name__ == '__main__':
     """ Main program. """
