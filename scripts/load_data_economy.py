@@ -74,9 +74,10 @@ def load_economical_data():
 
     # load dataframe of income per capita
     df_income_per_capita = pd.read_csv('../data/API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486/'
-                         'API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486.csv',
-                         sep=',', skip_blank_lines=True, header=2)
-    df_income_per_capita.drop(['Country Name', 'Indicator Name',  'Indicator Code', 'Unnamed: 65'], axis=1, inplace=True)
+                                       'API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486.csv',
+                                       sep=',', skip_blank_lines=True, header=2)
+    df_income_per_capita.drop(['Country Name', 'Indicator Name',  'Indicator Code', 'Unnamed: 65'], axis=1,
+                              inplace=True)
     df_income_per_capita.rename(columns={'Country Code': 'country'}, inplace=True)
 
     # melt and order to get in right format
@@ -86,6 +87,22 @@ def load_economical_data():
     df_income_per_capita = df_income_per_capita[['year', 'country', 'income per capita']]
 
     dfs.append(df_income_per_capita)
+
+    # load dataframe of income per capita growth
+    df_income_per_capita_growth = pd.read_csv('../data/API_NY.ADJ.NNTY.PC.KD.ZG_DS2_en_csv_v2_1745488/'
+                                              'API_NY.ADJ.NNTY.PC.KD.ZG_DS2_en_csv_v2_1745488.csv',
+                                              sep=',', skip_blank_lines=True, header=2)
+    df_income_per_capita_growth.drop(['Country Name', 'Indicator Name',  'Indicator Code', 'Unnamed: 65'], axis=1,
+                                     inplace=True)
+    df_income_per_capita_growth.rename(columns={'Country Code': 'country'}, inplace=True)
+
+    # melt and order to get in right format
+    df_income_per_capita_growth = df_income_per_capita_growth.melt(id_vars=['country'], var_name='year',
+                                                                   value_name='income per capita growth')
+    df_income_per_capita_growth['year'] = df_income_per_capita_growth['year'].astype('int64')
+    df_income_per_capita_growth = df_income_per_capita_growth[['year', 'country', 'income per capita growth']]
+
+    dfs.append(df_income_per_capita_growth)
 
     # merge all dataframes
     result = dfs[0]
