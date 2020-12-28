@@ -1,7 +1,7 @@
 ﻿import pandas as pd
-import country_converter as coco
-
-converter = coco.CountryConverter()
+# import country_converter as coco
+#
+# converter = coco.CountryConverter()
 
 
 def load_economical_data():
@@ -71,8 +71,8 @@ def load_economical_data():
     df_GDP_per_capita_growth = df_GDP_per_capita_growth.melt(id_vars=['country'], var_name='year',
                                                              value_name='GDP per capita growth')
     df_GDP_per_capita_growth['year'] = df_GDP_per_capita_growth['year'].astype('int64')
-    df_GDP_per_capita_growth = df_GDP_per_capita_growth[['year', 'country', 'GDP per capita growth']]
-    df_GDP_per_capita_growth.sort_values(['year', 'country'], inplace=True)
+    df_GDP_per_capita_growth = df_GDP_per_capita_growth[['country', 'year', 'GDP per capita growth']]
+    df_GDP_per_capita_growth.sort_values(['country', 'year'], inplace=True)
 
     dfs.append(df_GDP_per_capita_growth)
 
@@ -81,12 +81,12 @@ def load_economical_data():
     for df in dfs[1:]:
         result = result.merge(df, how='outer', on=['country', 'year'])
 
-    # todo set index
+    # set index
+    result.set_index(['country', 'year'], inplace=True)
 
     return result
 
 
-# test
 if __name__ == '__main__':
 
     dataframe = load_economical_data()
