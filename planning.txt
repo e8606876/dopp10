@@ -6,7 +6,7 @@ pycountry
 
 JFx Sun 18h zoom
 
-Week 1 (13-20.12)
+Week 1 (13.-20.12.)
 Get data and explore data separately as follows
 - Engergy production and consumption (Josef) 
 - economical (GDP, growth, ...)  (Frank)
@@ -21,27 +21,29 @@ Common data structure:
 1: country code
 2..: features
 
-Week 2 (21-27.12)
+Week 2 (21.-28.12.)
 Explore, clean datasets (unifiy country codes, handle missing values and outliers)
 Columns: [0]: year, [1]: country, [2:]: features (most relevant, simplified names)
 Upload cleaned up python script to GitHub --> scripts, upload raw data --> data (with references).
 Review interim results together 28.12. 18:00.
 Refine planning
 
-Week 3 (28-3.1)
+Week 3 (29.-3.1.)
 Finalize exploration
-Decide on final four main questions and related dataset(s)
+Time-range is set to 1980-2018.
+Merge individual dataframes into a single dataframe "load_data.py".
+Finalize main questions
 Refine planning
 
-Week 4 (4-10.1)
+Week 4 (4.-10.1.)
 Model data and find answers
 Refine planning
 
-Week 5 (11-17.1)
+Week 5 (11-17.1.)
 Report and visualize (coropleth map with time slider, time series, ...)
 Refine planning
 
-Week 6 (18-24.1)
+Week 6 (18.-24.1.)
 Create final deliveries
 Jupyter notebook (Josef)
 2-page pdf summary (tex document) (Frank)
