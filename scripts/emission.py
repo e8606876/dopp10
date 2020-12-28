@@ -40,5 +40,7 @@ def resize_emission(df):
     return data_emission_i
 
 
-data_emission = resize_emission(load_emission_data())
-b = 0
+if __name__ == '__main__':
+    """ Main program. """
+    data_emission = resize_emission(load_emission_data())
+    b = 0
