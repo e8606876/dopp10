@@ -33,3 +33,7 @@ GDP per capita (current US$)
 GDP per capita growth (annual %)	
 	Folder: API_NY.GDP.PCAP.KD.ZG_DS2_en_csv_v2_1740284
 	Source: https://data.worldbank.org/indicator/NY.GDP.PCAP.KD.ZG
+	
+Adjusted net national income per capita (current US$)	
+	Folder: API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486
+	Source: https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.CD

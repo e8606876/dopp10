@@ -25,7 +25,6 @@ def load_economical_data():
     df_GDP = df_GDP.melt(id_vars=['country'], var_name='year', value_name='GDP')
     df_GDP['year'] = df_GDP['year'].astype('int64')
     df_GDP = df_GDP[['year', 'country', 'GDP']]
-    df_GDP.sort_values(['year', 'country'], inplace=True)
 
     dfs.append(df_GDP)
 
@@ -40,7 +39,6 @@ def load_economical_data():
     df_GDP_growth = df_GDP_growth.melt(id_vars=['country'], var_name='year', value_name='GDP growth')
     df_GDP_growth['year'] = df_GDP_growth['year'].astype('int64')
     df_GDP_growth = df_GDP_growth[['year', 'country', 'GDP growth']]
-    df_GDP_growth.sort_values(['year', 'country'], inplace=True)
 
     dfs.append(df_GDP_growth)
 
@@ -55,7 +53,6 @@ def load_economical_data():
     df_GDP_per_capita = df_GDP_per_capita.melt(id_vars=['country'], var_name='year', value_name='GDP per capita')
     df_GDP_per_capita['year'] = df_GDP_per_capita['year'].astype('int64')
     df_GDP_per_capita = df_GDP_per_capita[['year', 'country', 'GDP per capita']]
-    df_GDP_per_capita.sort_values(['year', 'country'], inplace=True)
 
     dfs.append(df_GDP_per_capita)
 
@@ -72,9 +69,23 @@ def load_economical_data():
                                                              value_name='GDP per capita growth')
     df_GDP_per_capita_growth['year'] = df_GDP_per_capita_growth['year'].astype('int64')
     df_GDP_per_capita_growth = df_GDP_per_capita_growth[['country', 'year', 'GDP per capita growth']]
-    df_GDP_per_capita_growth.sort_values(['country', 'year'], inplace=True)
 
     dfs.append(df_GDP_per_capita_growth)
+
+    # load dataframe of income per capita
+    df_income_per_capita = pd.read_csv('../data/API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486/'
+                         'API_NY.ADJ.NNTY.PC.CD_DS2_en_csv_v2_1745486.csv',
+                         sep=',', skip_blank_lines=True, header=2)
+    df_income_per_capita.drop(['Country Name', 'Indicator Name',  'Indicator Code', 'Unnamed: 65'], axis=1, inplace=True)
+    df_income_per_capita.rename(columns={'Country Code': 'country'}, inplace=True)
+
+    # melt and order to get in right format
+    df_income_per_capita = df_income_per_capita.melt(id_vars=['country'], var_name='year',
+                                                     value_name='income per capita')
+    df_income_per_capita['year'] = df_income_per_capita['year'].astype('int64')
+    df_income_per_capita = df_income_per_capita[['year', 'country', 'income per capita']]
+
+    dfs.append(df_income_per_capita)
 
     # merge all dataframes
     result = dfs[0]
@@ -82,6 +93,7 @@ def load_economical_data():
         result = result.merge(df, how='outer', on=['country', 'year'])
 
     # set index
+    result.sort_values(['country', 'year'], inplace=True)
     result.set_index(['country', 'year'], inplace=True)
 
     return result
