@@ -29,7 +29,7 @@ def load_political_data():
     warheads['Year'] = warheads['Year'].astype('int')
     warheads = warheads.set_index('Year')
     # transform datafame from 2D to MultiIndex
-    warheads = warheads.fillna(value=0).stack()
+    warheads = warheads.stack()
     warheads = warheads.reset_index()
     # set column names and convert country names to ISO3
     warheads.columns = ['year', 'country', 'nuclear_warheads']
@@ -45,8 +45,9 @@ def load_political_data():
     research = research[['Time','Country', 'Value']]
     research.columns = ['year', 'country', 'research_%GDP']
     # convert to ISO3 and exclude regions (cannot be converted to countrycode)
+    research['country'] = research['country'].replace({'Oceania (Australia/New Zealand)':'not found'})
     research['country'] =  cc.convert(research['country'].to_list(), to='ISO3', not_found='not found')
-    research = research[research['country'].apply(len) ==3]
+    research = research[research['country'] != 'not found']
     research = research.set_index(['year', 'country'])
 
     
@@ -62,11 +63,9 @@ def load_political_data():
     accidents['country'] = accidents['country'].replace(_dict_country_repl)
     # conversion to ISO3
     accidents['country'] = cc.convert(accidents['country'].to_list(), to='ISO3')
-    # fill missing values with 0 (as contrast to NaN for 'no accident')
-    accidents = accidents.fillna(value=0)
     accidents = accidents.set_index(['year', 'country'])
     # sum values, if there was more than one accident per year and country
-    accidents = accidents.sum(level=[0,1])
+    accidents = accidents.sum(level=['year','country'])
     
     # democarcy indicators
     democracy = pd.read_csv('../data/gsodi_pv_4.csv', low_memory=False)
@@ -79,7 +78,7 @@ def load_political_data():
             {'Southern Africa':' ','German Democratic Republic':'Germany'})
     democracy['country'] = cc.convert(democracy['country'].to_list(), to='ISO3')
     # exclude regions (and east germany)
-    democracy = democracy[democracy['country'].apply(len) ==3]
+    democracy = democracy[democracy['country'] != 'not found']
     democracy = democracy.set_index(['year', 'country'])
     # use mean value for duplicate values (EAST and WEST GERMANY)
     democracy = democracy.mean(level=['year','country'])
@@ -88,13 +87,16 @@ def load_political_data():
     reactors = load_reactor_numbers()
     
     # merging and fill some of the missing values
-    merge = reactors.join(
-            warheads, how='outer').join(
-                    accidents, how='outer').join(
-                            research, how='outer').join(
-                                    democracy,how='outer')
-    merge.iloc[:,:4] = merge.iloc[:,:4].fillna(value=0)
+    merge = pd.concat(
+            [reactors,warheads,accidents,research,democracy],
+            axis=1, join='outer')
+
+
+    #merge.iloc[:,3] = merge.iloc[:,3].unstack().interpolate().stack()
+    merge.iloc[:,:3] = merge.iloc[:,:3].fillna(value=0)
     #merge.iloc[:,4:6] = merge.iloc[:,4:6].fillna(value='None')
+    
+    merge = merge.sort_index(level=['country'])
     
     return merge
 
