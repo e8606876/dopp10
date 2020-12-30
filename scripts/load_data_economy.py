@@ -1,7 +1,5 @@
 ﻿import pandas as pd
-# import country_converter as coco
-#
-# converter = coco.CountryConverter()
+import pycountry
 
 
 def load_economical_data():
@@ -78,10 +76,18 @@ def load_economical_data():
     result.sort_values(['country', 'year'], inplace=True)
     result.reset_index(inplace=True, drop=True)
 
+    # Since there are some aggregated values (e. g. WLD for world) remove all rows which don't have a valid
+    # ISO 3166 Alpha-3 code.
+    alpha_3_list = [country.alpha_3 for country in list(pycountry.countries)]  # all valid codes
+    valid_entry = result['country'].isin(alpha_3_list)  # boolean series if each row is valid or not
+    result = result.loc[valid_entry]
+    # invalid = set(result.loc[~valid_entry]['country'].tolist())
+    # print('invalid', invalid)
+
     return result
 
 
 if __name__ == '__main__':
 
     dataframe = load_economical_data()
-    print(dataframe.info())
+    print(dataframe.info(), '\n')
