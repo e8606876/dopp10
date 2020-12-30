@@ -1,0 +1,70 @@
+column, description
+year, year of observation
+country, ISO 3166 Alpha-3 code
+co2, Annual production-based emissions of carbon dioxide (CO2) measured in million tonnes per year
+co2_growth_prct, Percentage change in CO2 emissions from one year relative to the previous year
+co2_growth_abs, Annual change in CO2 emissions from one year relative to the previous year measured in million tonnes
+consumption_co2, Annual consumption-based CO2 emissions measured in million tonnes per year
+trade_co2, Net CO2 emissions embedded in trade; this is the net difference between CO2 embedded in exported and imported goods measured in million tonnes
+trade_co2_share, CO2 emissions embedded in trade given as a percentage of national production-based emissions
+co2_per_capita, Average per capita CO2 emissions measured in tonnes per year
+consumption_co2_per_capita, Per capita consumption-based CO2 emissions measured in tonnes per year
+share_global_co2, National or regional annual CO2 emissions measured as a percentage of the global total
+cumulative_co2, Cumulative emissions of CO2 from 1751 through to the given year measured in million tonnes
+share_global_cumulative_co2, National or regional annual cumulative CO2 emissions measured as a share of the global total
+co2_per_gdp, CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
+consumption_co2_per_gdp, Consumption-based CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
+co2_per_unit_energy, CO2 emissions measured per unit of energy consumed
+cement_co2, CO2 emissions from cement production measured in million tonnes
+coal_co2, CO2 emissions from coal production measured in million tonnes
+flaring_co2, CO2 emissions from gas flaring measured in million tonnes
+gas_co2, CO2 emissions from gas production measured in million tonnes
+oil_co2, CO2 emissions from oil production measured in million tonnes
+cement_co2_per_capita, Per capita CO2 emissions from cement production measured in tonnes
+coal_co2_per_capita, Per capita CO2 emissions from coal production measured in tonnes
+flaring_co2_per_capita, Per capita CO2 emissions from flaring measured in tonnes
+gas_co2_per_capita, Per capita CO2 emissions from gas production
+oil_co2_per_capita, Per capita CO2 emissions from oil production measured in tonnes
+total_ghg, Annual greenhouse gas emissions measured in million tonnes of carbon dioxide equivalents
+ghg_per_capita, Greenhouse gas emissions per capita measured in tonnes of carbon dioxide equivalents
+methane, Annual methane emissions measured in million tonnes of carbon dioxide equivalents
+methane_per_capita, Methane emissions per capita measured in tonnes of carbon dioxide equivalents
+nitrous_oxide, Annual nitrous oxide emissions measured in million tonnes of carbon dioxide equivalents
+nitrous_oxide_per_capita, Nitrous oxide emissions per capita measured in tonnes of carbon dioxide equivalents
+primary_energy_consumption, Primary energy consumption measured in terawatt-hours per year
+energy_per_capita, Primary energy consumption per capita measured in kilowatt-hours per year
+energy_per_gdp, Primary energy consumption per unit of gross domestic product measured in kilowatt-hours per international-$
+population, Total population
+GDP, GDP (current US$)
+GDP growth, GDP growth (annual %)
+GDP per capita, GDP per capita (current US$)
+GDP per capita growth, GDP per capita growth (annual %)
+income per capita, Adjusted net national income per capita (current US$)
+income per capita growth, Adjusted net national income per capita (annual % growth)
+built_reactors_x,
+shutdown_reactors_x,
+operating_reactors_x,
+nuclear_warheads,
+accident_cost_MioUSD2013,
+accident_deaths,
+research_%GDP,
+representative_government,
+fundamental_rights,
+checks_on_gouvernment,
+impartial_administration,
+civil_society_participation,
+built_reactors_y,
+shutdown_reactors_y,
+operating_reactors_y,
+cons_btu,
+coal_cons_btu,
+gas_cons_btu,
+oil_cons_btu,
+nuclear_cons_btu,
+renewables_cons_btu,
+prod_btu,
+coal_prod_btu,
+gas_prod_btu,
+oil_prod_btu,
+nuclear_prod_btu,
+renewables_prod_btu
