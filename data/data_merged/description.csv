@@ -41,9 +41,9 @@ GDP per capita, GDP per capita (current US$)
 GDP per capita growth, GDP per capita growth (annual %)
 income per capita, Adjusted net national income per capita (current US$)
 income per capita growth, Adjusted net national income per capita (annual % growth)
-built_reactors_x,
-shutdown_reactors_x,
-operating_reactors_x,
+built_reactors,
+shutdown_reactors,
+operating_reactors,
 nuclear_warheads,
 accident_cost_MioUSD2013,
 accident_deaths,
@@ -53,9 +53,6 @@ fundamental_rights,
 checks_on_gouvernment,
 impartial_administration,
 civil_society_participation,
-built_reactors_y,
-shutdown_reactors_y,
-operating_reactors_y,
 cons_btu,
 coal_cons_btu,
 gas_cons_btu,

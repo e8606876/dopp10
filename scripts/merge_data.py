@@ -22,10 +22,6 @@ df_politics = load_political_data()
 df_politics.reset_index(drop=False, inplace=True)
 dfs.append(df_politics)
 
-df_reactors = load_reactor_numbers()
-df_reactors.reset_index(drop=False, inplace=True)
-dfs.append(df_reactors)
-
 # Energy script
 # df_energy = pd.read_csv('out2.csv', index_col=0)  # for faster testing
 df_energy = load_useia_data()
