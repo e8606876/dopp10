@@ -41,18 +41,18 @@ GDP per capita, GDP per capita (current US$)
 GDP per capita growth, GDP per capita growth (annual %)
 income per capita, Adjusted net national income per capita (current US$)
 income per capita growth, Adjusted net national income per capita (annual % growth)
-built_reactors,
-shutdown_reactors,
-operating_reactors,
-nuclear_warheads,
-accident_cost_MioUSD2013,
-accident_deaths,
-research_%GDP,
-representative_government,
-fundamental_rights,
-checks_on_gouvernment,
-impartial_administration,
-civil_society_participation,
+built_reactors, number of newly built reactors (Commercial Operation Date) per country and year from pris.iaea.org 
+shutdown_reactors, number of decommissioned nuclear reactors (Permanent Shutdown Date) per country and year
+operating_reactors,number of operating nuclear reactors (built minus shutdown) per year and country
+nuclear_warheads, number of nuclear warheads for military use
+accident_cost_MioUSD2013, cost from accidents in nuclear power plants (sum, if more than one per year and country) in MioUSD per 2013
+accident_deaths, number of deaths from accidents in nuclear power plants (sum, if more than one per year and country)
+research_%GDP, total reasearch expenditure (in % from GDP, independent from local currancy)
+representative_government, indicator for quality of popular elections as well as legislativeand executive offices (from 0-lowest score to 1-highest score)
+fundamental_rights, indicator for Fundamental Rights in the form of liberal and social rights support both fair representation and the vertical mechanism of accountability (from 0-lowest score to 1-highest score)
+checks_on_gouvernment, indicator for checks of gouvernment braches on each other to avoid misuse of power (from 0-lowest score to 1-highest score)
+impartial_administration, indicator for impartial and indipendent administration for exercise of power (from 0-lowest score to 1-highest score)
+civil_society_participation, indicator to show if the population is engaged in civil society activities (from 0-lowest score to 1-highest score)
 cons_btu, total energy consumption in quat btu
 coal_cons_btu, coal consumption in quad btu
 gas_cons_btu, gas consumption in quad btu
