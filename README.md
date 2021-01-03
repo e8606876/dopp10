@@ -1,6 +1,6 @@
 # dopp10
 
-NEXT MEETING: Mon 28.12 18:00h
+NEXT MEETING: Sun 10.01. 18:00h
 
 https://tuwien.zoom.us/j/5172562790
 
@@ -12,13 +12,7 @@ https://tuwien.zoom.us/j/5172562790
 
 #Deadlines
 - Mo 14.12. 23:55h one pager -> johannes
-
-
 - 16.12. 14-14:15h Review meeting 
 - 20.1. reserve time slot for final presentation
 - 27.1. 8:00h upload final hand-in (zip + presentation)
 - 27.1. presentation all groups
-
-
-
-
