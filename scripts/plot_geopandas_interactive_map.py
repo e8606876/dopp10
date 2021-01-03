@@ -61,7 +61,7 @@ def show_map(df, desc, feature, scope):
 
 # main function for testing
 if __name__ == '__main__':
-    feature = "nuclear_prod_btu"
+    feature = "operating_reactors"
     df, desc = load_data_for_plot(feature)
     show_map(df, desc, feature, 'world')  # usa, europe, asia, africa, north america, ...
 
