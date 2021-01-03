@@ -53,13 +53,13 @@ fundamental_rights,
 checks_on_gouvernment,
 impartial_administration,
 civil_society_participation,
-cons_btu, total energy consumption in quat btu
+cons_btu, total energy consumption in quad btu
 coal_cons_btu, coal consumption in quad btu
 gas_cons_btu, gas consumption in quad btu
 oil_cons_btu, oil consumption in quad btu
 nuclear_cons_btu, nuclear energy consumption in quad btu
 renewables_cons_btu, renewables and other consumption in quad but
-prod_btu, total energy production in quat btu
+prod_btu, total energy production in quad btu
 coal_prod_btu, coal production in quad btu
 gas_prod_btu, gas production in quad btu
 oil_prod_btu, oil production in quad btu
