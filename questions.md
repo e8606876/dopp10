@@ -1,4 +1,4 @@
-Q1: How has the use of nuclear energy evolved over time? 
+Q1: **How has the use of nuclear energy evolved over time? **
 	- search for data for production of nuclear energy and consumption (electricity vs. total energy)
 	- differences between countries where electricity is produced and consumed (import/export of electricity)
 	- Are changes in the amount of produced nuclear energy mainly caused by the building/decommissioning of reactors (or also by varying workload)? 
