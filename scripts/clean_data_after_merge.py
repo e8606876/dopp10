@@ -11,7 +11,10 @@ def remove_small_countries(df,min_population=100000):
 
 def clean_data_after_merge(df):
     # function to remove of fill missing data in merged dataframe
-    
+
+    # year as INT
+    df['year'] = df['year'].astype('int')
+
     # remove small countries first
     df = remove_small_countries(df)
 

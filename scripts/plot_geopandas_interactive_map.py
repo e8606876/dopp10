@@ -54,6 +54,8 @@ def show_map(df, desc, feature, scope):
                         range_color=(min, max),
                         animation_frame="year",
                         title='Development of feature ' + feature + ': ' + desc)
+    # do not show antarctis in world map
+    if scope=='world': fig.layout.geo.lataxis.range = [-55,90]
     fig.show()
 
     return
