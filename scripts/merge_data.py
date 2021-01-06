@@ -1,7 +1,7 @@
 import pandas as pd
 
 from load_energy2_data import *
-from emission import *
+from load_data_emission import *
 from load_data_economy import *
 from load_data_political import *
 
