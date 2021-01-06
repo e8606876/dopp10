@@ -1,12 +1,9 @@
-column, description
 year, year of observation
 country, ISO 3166 Alpha-3 code
 co2, Annual production-based emissions of carbon dioxide (CO2) measured in million tonnes per year
 co2_growth_prct, Percentage change in CO2 emissions from one year relative to the previous year
 co2_growth_abs, Annual change in CO2 emissions from one year relative to the previous year measured in million tonnes
 consumption_co2, Annual consumption-based CO2 emissions measured in million tonnes per year
-trade_co2, Net CO2 emissions embedded in trade; this is the net difference between CO2 embedded in exported and imported goods measured in million tonnes
-trade_co2_share, CO2 emissions embedded in trade given as a percentage of national production-based emissions
 co2_per_capita, Average per capita CO2 emissions measured in tonnes per year
 consumption_co2_per_capita, Per capita consumption-based CO2 emissions measured in tonnes per year
 share_global_co2, National or regional annual CO2 emissions measured as a percentage of the global total
@@ -31,9 +28,6 @@ methane, Annual methane emissions measured in million tonnes of carbon dioxide e
 methane_per_capita, Methane emissions per capita measured in tonnes of carbon dioxide equivalents
 nitrous_oxide, Annual nitrous oxide emissions measured in million tonnes of carbon dioxide equivalents
 nitrous_oxide_per_capita, Nitrous oxide emissions per capita measured in tonnes of carbon dioxide equivalents
-primary_energy_consumption, Primary energy consumption measured in terawatt-hours per year
-energy_per_capita, Primary energy consumption per capita measured in kilowatt-hours per year
-energy_per_gdp, Primary energy consumption per unit of gross domestic product measured in kilowatt-hours per international-$
 population, Total population
 GDP, GDP (current US$)
 GDP growth, GDP growth (annual %)
