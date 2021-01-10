@@ -1,10 +1,12 @@
-import pandas as pd
-
-from load_energy2_data import *
-from load_data_emission import *
 from load_data_economy import *
+from load_data_emission import *
 from load_data_political import *
+from load_energy2_data import *
 
+# Energy script
+# df_energy = pd.read_csv('out2.csv', index_col=0)  # for faster testing
+df_energy = load_useia_data()
+year_min, year_max = df_energy['year'].min(), df_energy['year'].max()
 
 dfs = []
 
@@ -22,20 +24,11 @@ df_politics = load_political_data()
 df_politics.reset_index(drop=False, inplace=True)
 dfs.append(df_politics)
 
-# Energy script
-# df_energy = pd.read_csv('out2.csv', index_col=0)  # for faster testing
-df_energy = load_useia_data()
-year_min, year_max = df_energy['year'].min(), df_energy['year'].max()
-dfs.append(df_energy)
-
 
 # merge all dataframes:
-dataframe = dfs[0]
-for df in dfs[1:]:
-    dataframe = dataframe.merge(df, how='outer', on=['year', 'country'])
-
-# only take relevant years
-dataframe = dataframe[(dataframe['year'] >= year_min) & (dataframe['year'] <= year_max)]
+dataframe = df_energy
+for df in dfs:
+    dataframe = dataframe.merge(df, how='left', on=['year', 'country'])
 
 dataframe.info()
 
