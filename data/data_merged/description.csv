@@ -47,7 +47,7 @@ fundamental_rights, indicator for Fundamental Rights in the form of liberal and 
 checks_on_gouvernment, indicator for checks of gouvernment braches on each other to avoid misuse of power (from 0-lowest score to 1-highest score)
 impartial_administration, indicator for impartial and indipendent administration for exercise of power (from 0-lowest score to 1-highest score)
 civil_society_participation, indicator to show if the population is engaged in civil society activities (from 0-lowest score to 1-highest score)
-cons_btu, total energy consumption in quat btu
+cons_btu, total energy consumption in quad btu
 coal_cons_btu, coal consumption in quad btu
 gas_cons_btu, gas consumption in quad btu
 oil_cons_btu, oil consumption in quad btu
