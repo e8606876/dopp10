@@ -10,6 +10,17 @@ import logging
 country_converter.logging.getLogger().setLevel(logging.CRITICAL)
 cc = country_converter.CountryConverter()
 
+pd.set_option('display.max_rows', None)
+
+
+#def map_historic_countries(dfc): DEACTIVATED JG
+#    dfc[['country']] = dfc[['country']].replace('SCG', 'SRB')
+#    dfc[['country']] = dfc[['country']].replace('XKS', 'SRB')
+#    dfc[['country']] = dfc[['country']].replace('DDR', 'DEU')
+#    dfc[['country']] = dfc[['country']].replace('EUW', 'DEU')
+#    dfc[['country']] = dfc[['country']].replace('SUN', 'RUS')
+#    return dfc
+
 
 def load_useia_data():
     data = pd.DataFrame()
@@ -25,11 +36,13 @@ def load_useia_data():
     consumption.insert(loc=0, column='check', value='X')
 
     consumption['country'] = consumption['API'].str[-10:-7]
+    #consumption = map_historic_countries(consumption)
     consumption['check'] = cc.convert(names=consumption['country'].to_list(), to='ISO3')
 
     consumption = consumption.sort_values(by=['country'])
 
     # data cleaning
+
     # remove rows where country code check failed
     raw = consumption[consumption['check'] != 'not found']
 
@@ -98,11 +111,13 @@ def load_useia_data():
     production.insert(loc=0, column='check', value='X')
 
     production['country'] = production['API'].str[-10:-7]
+    #production = map_historic_countries(production)
     production['check'] = cc.convert(names=production['country'].to_list(), to='ISO3')
 
     production.sort_values('country')
 
     # data cleaning
+
     # remove rows where country code check failed
     raw = production[production['check'] != 'not found']
 
@@ -161,6 +176,9 @@ def load_useia_data():
             j += 1
 
     data = pd.merge(consumption, production, how="outer", on=['year', 'country'])
+
+    data['year'] = data['year'].astype('int32')
+    data['nuclear_prod_btu'] = data['nuclear_prod_btu'].astype('float64')
 
     return data
 
