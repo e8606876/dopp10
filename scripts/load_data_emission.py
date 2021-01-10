@@ -42,7 +42,9 @@ def resize_emission(df):
     # Set index on country_code and year (group by country_code).
     # data_emission_i = data_emission_i.set_index(['country_code', 'year'])
     # Keep most interesting columns:
-    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:-2], axis=1).drop(['gdp', 'trade_co2', 'trade_co2_share'], axis=1)
+    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:-2], axis=1)
+    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, 16:26], axis=1)  # delete cement,... produc. emission
+    data_emission_i = data_emission_i.drop(['gdp', 'trade_co2', 'trade_co2_share'], axis=1)
     return data_emission_i
 
 

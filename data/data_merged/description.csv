@@ -12,16 +12,6 @@ share_global_cumulative_co2, National or regional annual cumulative CO2 emission
 co2_per_gdp, CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
 consumption_co2_per_gdp, Consumption-based CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
 co2_per_unit_energy, CO2 emissions measured per unit of energy consumed
-cement_co2, CO2 emissions from cement production measured in million tonnes
-coal_co2, CO2 emissions from coal production measured in million tonnes
-flaring_co2, CO2 emissions from gas flaring measured in million tonnes
-gas_co2, CO2 emissions from gas production measured in million tonnes
-oil_co2, CO2 emissions from oil production measured in million tonnes
-cement_co2_per_capita, Per capita CO2 emissions from cement production measured in tonnes
-coal_co2_per_capita, Per capita CO2 emissions from coal production measured in tonnes
-flaring_co2_per_capita, Per capita CO2 emissions from flaring measured in tonnes
-gas_co2_per_capita, Per capita CO2 emissions from gas production
-oil_co2_per_capita, Per capita CO2 emissions from oil production measured in tonnes
 total_ghg, Annual greenhouse gas emissions measured in million tonnes of carbon dioxide equivalents
 ghg_per_capita, Greenhouse gas emissions per capita measured in tonnes of carbon dioxide equivalents
 methane, Annual methane emissions measured in million tonnes of carbon dioxide equivalents
