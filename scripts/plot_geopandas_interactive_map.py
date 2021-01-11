@@ -25,8 +25,9 @@ def load_data_for_plot(f):
     desc_file = '../data/data_merged/description.csv'
     data_file = '../data/data_merged/data.csv'
 
-    d = pd.read_csv(desc_file, sep=",")
-    row = d.loc[d['column'] == f]
+    d = pd.read_csv(desc_file, sep=",", header=None)
+
+    row = d.loc[d[0] == f]
     feature_desc = row.iat[0, 1].strip()
     feature_idx = row.index[0]
 
