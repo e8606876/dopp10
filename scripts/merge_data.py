@@ -1,13 +1,20 @@
-from load_energy2_data import *
 from load_data_emission import *
 from load_data_economy import *
 from load_data_political import *
 
 
+def clean_data_after_merge(df):
+    """Fill some missing data in merged dataframe."""
+    # Taken from Johannes and modified a little bit by Frank.
+
+    for column in ['built_reactors', 'shutdown_reactors', 'operating_reactors', 'nuclear_warheads']:
+        df[column].fillna(value=0, inplace=True)
+    for column in ['accident_cost_MioUSD2013', 'accident_deaths']:
+        df[column].fillna(value=0, inplace=True)
+
+
 # Energy script
 df_energy = pd.read_csv('out2.csv', index_col=0)  # for faster testing
-# df_energy = load_useia_data()
-year_min, year_max = df_energy['year'].min(), df_energy['year'].max()
 
 
 dfs = []
@@ -32,9 +39,10 @@ dataframe = df_energy
 for df in dfs:
     dataframe = dataframe.merge(df, how='left', on=['year', 'country'])
 
-# only take relevant years
-dataframe = dataframe[(dataframe['year'] >= year_min) & (dataframe['year'] <= year_max)]
+# clean up some values
+clean_data_after_merge(dataframe)
 
+# display information
 dataframe.info()
 
 # write to csv
