@@ -24,7 +24,7 @@ def load_data_q1():
     return data
 
 
-def show_plot1(df):
+def show_plot0(df):
     df1 = df[['year', 'oil_prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'nuclear_prod_btu', 'renewables_prod_btu']]
 
     df1 = df1.groupby(['year']).sum()
@@ -47,22 +47,68 @@ def show_plot1(df):
     return
 
 
-def show_plot2(df):
-    df1 = df[['year', 'oil_prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'renewables_prod_btu', 'nuclear_prod_btu']]
+def show_plot1(df):
+    df1 = df[['year', 'oil_prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'nuclear_prod_btu', 'renewables_prod_btu']]
 
     df1 = df1.groupby(['year']).sum()
-    df1 = df1.T
-    df1.insert(0, 'category', ['oil', 'coal', 'gas', 'renewables and other', 'nuclear'])
 
-    colors = ['dimgray', 'black', 'darkcyan', 'green', 'yellow']
+    y = [df1["oil_prod_btu"], df1["coal_prod_btu"], df1["gas_prod_btu"], df1["nuclear_prod_btu"],
+         df1["renewables_prod_btu"]]
 
-    pd.plotting.parallel_coordinates(df1, 'category', color=colors)
+    y0 = (y[0] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
+    y1 = (y[1] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
+    y2 = (y[2] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
+    y3 = (y[3] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
+    y4 = (y[4] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
 
-    plt.title('Parallel coordinates energy production 1980-2018 in quadrillion btu')
+    percent = [y0, y1, y2, y3, y4]
+
+    colors = ['dimgray', 'black', 'darkcyan', 'yellow', 'green']
+    labels = ['oil', 'coal', 'gas', 'nuclear', 'renewables and other']
+
+    plt.stackplot(df1.index, percent, labels=labels, colors=colors)
+
+    plt.title('100% stackplot overall energy production 1980-2018 in percent(%)')
+    plt.xlabel(xlabel='years')
+    plt.ylabel(ylabel='production in percent(%)')
+    plt.legend(loc='upper left')
+    plt.twinx()
+
+    plt.show()
+
+    return
+
+
+def show_plot2(df):
+    df1 = df[['year', 'oil_prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'renewables_prod_btu', 'nuclear_prod_btu']]
+    df1 = df1.groupby(['year']).sum()
+    df1 = df1.rename(columns={'oil_prod_btu':'oil', 'coal_prod_btu':'coal', 'gas_prod_btu':'gas',
+                        'renewables_prod_btu':'renewables', 'nuclear_prod_btu':'nuclear'})
+    df1 = df1.reset_index()
+
+    df2 = df[['year', 'accident_deaths']]
+    df2 = df2.groupby(['year']).sum()
+
+    ax = plt.gca()
+
+    df1.plot(kind='line', x='year', y='oil', color='dimgray', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='coal', color='black', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='gas', color='darkcyan', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='renewables', color='green', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='nuclear', color='yellow', ax=ax, linewidth=3)
+
+    plt.title('energy prod per energy source incl deaths in nuclear power plants')
     plt.xlabel(xlabel='years')
     plt.ylabel(ylabel='production in quad btu')
     plt.legend(loc='upper left')
-    plt.locator_params(nbins=8)
+    plt.grid()
+
+    shift = -4
+    for x, y in zip(df1['year'], df1['nuclear']):
+        label = df2.loc[x]
+        if label[0] > 0:
+            plt.annotate(label[0].astype('int32'), (x, y+shift), fontweight='bold')
+            shift = shift * -1
 
     plt.show()
 
@@ -106,6 +152,7 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
 # main function for testing
 if __name__ == '__main__':
     df = load_data_q1()
+    show_plot0(df)
     show_plot1(df)
     show_plot2(df)
     show_plot3(df)

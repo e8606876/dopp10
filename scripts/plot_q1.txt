@@ -1,0 +1,32 @@
+plot0 - stackplot
+Shows overall development of energy production over time in quadrillion
+btu. In the selected timeframe (past 38 years) the overall energy
+requirements almost doubled. Annual production of all types of energy climbed.
+oil +46%, coal +239%, gas +279%, nuclear +384%, renewables + 340%
+(1980 vs 2018)
+
+btu ... "defined as the amount of heat required to raise the temperature
+of one pound of water by one degree"
+
+
+plot1 - 100% stacked area chart
+The stacked area chart is focusing on the composition (by energy source).
+In 1980 we see about 90% fossil energy sources, 3% nuclear and 7% renewables.
+Whereas in 2018 fossil energy sources drop to 84%, nuclear 4.4% and
+renewables 11.4%
+
+
+plot2 - line plot with annotations
+Shows energy production per energy source including reported number of deaths from accidents
+in nuclear power plants.
+Annual increase in average (1980-2018)
++3,7% nuclear production and +3,2% renewables / others
+However since 2000, nuclear energy production started to stagnate.
+But production of renewables doubled (from 32.1 to 68.35 quadrillion btu)
+Remark coal production:
+The reason of the climb and the shape of the curve is due to the rapid growth in China,
+which is predominant on the coal market.
+
+
+plot3 (table)
+not yet ready
