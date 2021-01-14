@@ -28,5 +28,11 @@ The reason of the climb and the shape of the curve is due to the rapid growth in
 which is predominant on the coal market.
 
 
-plot3 (table)
-not yet ready
+plot3 - bar plot with data table attached
+USA and France are leading the ranking in 1998 as well as 2018.
+China catched up and is now #3
+The top 7 countries increased production in selected timeframe.
+Further observations:
+EU countries decrease production and a reduce number of operating reactors.
+Japan reduced production and number of reactors significantly, obviously driven by recent accidents.
+In the Ukraine the development stagnates. No decline due to Chernobyl disaster in 1986.

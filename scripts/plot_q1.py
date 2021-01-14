@@ -7,6 +7,7 @@ import plotly.express as px
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def load_data_q1():
@@ -82,8 +83,8 @@ def show_plot1(df):
 def show_plot2(df):
     df1 = df[['year', 'oil_prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'renewables_prod_btu', 'nuclear_prod_btu']]
     df1 = df1.groupby(['year']).sum()
-    df1 = df1.rename(columns={'oil_prod_btu':'oil', 'coal_prod_btu':'coal', 'gas_prod_btu':'gas',
-                        'renewables_prod_btu':'renewables', 'nuclear_prod_btu':'nuclear'})
+    df1 = df1.rename(columns={'oil_prod_btu': 'oil', 'coal_prod_btu': 'coal', 'gas_prod_btu': 'gas',
+                              'renewables_prod_btu': 'renewables', 'nuclear_prod_btu': 'nuclear'})
     df1 = df1.reset_index()
 
     df2 = df[['year', 'accident_deaths']]
@@ -107,7 +108,7 @@ def show_plot2(df):
     for x, y in zip(df1['year'], df1['nuclear']):
         label = df2.loc[x]
         if label[0] > 0:
-            plt.annotate(label[0].astype('int32'), (x, y+shift), fontweight='bold')
+            plt.annotate(label[0].astype('int32'), (x, y + shift), fontweight='bold')
             shift = shift * -1
 
     plt.show()
@@ -139,12 +140,87 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
     df5 = df5.fillna(0)
     df5.insert(0, 'movement', (df5['rank1998'] - df5['rank2018']).astype('int32'))
 
+    df5['movement'] = np.where((df5.rank1998 == 0), 0, df5.movement)
+    df5['movement'] = np.where((df5.rank2018 == 0), 0, df5.movement)
+
     df6 = df.groupby(['country']).sum()
     df6 = df6[['accident_deaths']]
 
     df7 = df5.merge(df6, how='left', on=['country'])
 
-    print(df7)
+    # print(df7)
+
+    df8 = df7.drop(columns=['accident_deaths', 'op_reactors_1998', 'op_reactors_2018',
+                            'movement', 'rank2018', 'rank1998'])
+
+    df8.plot(kind="bar")
+    plt.title('Nuclear production ranking 1998 vs 2018')
+    plt.xlabel(xlabel='')
+    plt.ylabel(ylabel='production in quadrillion btu')
+    plt.legend(loc='upper left')
+
+    plt.gca().set_xticks([])
+
+    df9 = df7[['rank1998', 'rank2018', 'movement', 'op_reactors_1998', 'op_reactors_2018', 'accident_deaths']]
+    df9.insert(5, 'change2', (df9['op_reactors_2018'] - df9['op_reactors_1998']).astype('int32'))
+    df9['change2'] = np.where((df9.op_reactors_1998 == 0), 0, df9.change2)
+    df9['change2'] = np.where((df9.op_reactors_2018 == 0), 0, df9.change2)
+    df9 = df9.T
+    rowlabels = ['rank 1998', 'rank 2018', 'delta ranking', 'reactors 1998', 'reactors 2018', 'delta reactors', 'deaths']
+    the_table = plt.table(cellText=df9.values,
+                          rowLabels=rowlabels,
+                          colLabels=df9.columns,
+                          cellLoc='right', rowLoc='center',
+                          loc='bottom')
+    the_table.auto_set_font_size(False)
+    the_table.set_fontsize(10)
+
+    plt.subplots_adjust(bottom=0.3)
+
+    plt.show()
+    return
+
+
+def show_plot4(df):
+    df0 = df[['year', 'renewables_prod_btu', 'nuclear_prod_btu', 'country', 'accident_deaths']]
+    df0.index = df0.year
+
+    df1 = df0[df0['country'] == 'JPN']
+    df2 = df0[df0['country'] == 'UKR']
+
+    df1 = df1.rename(columns={'renewables_prod_btu': 'renewables JPN', 'nuclear_prod_btu': 'nuclear JPN'})
+    df2 = df2.rename(columns={'renewables_prod_btu': 'renewables UKR', 'nuclear_prod_btu': 'nuclear UKR'})
+
+    ax = plt.gca()
+
+    df1.plot(kind='line', x='year', y='renewables JPN', color='green', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='nuclear JPN', color='yellow', ax=ax, linewidth=3)
+    df2.plot(kind='line', x='year', y='renewables UKR', color='darkgreen', ax=ax, linewidth=3)
+    df2.plot(kind='line', x='year', y='nuclear UKR', color='darkolivegreen', ax=ax, linewidth=3)
+
+    plt.title('nuclear energy prod JPN vs UKR')
+    plt.xlabel(xlabel='years')
+    plt.ylabel(ylabel='production in quad btu')
+    plt.legend(loc='upper left')
+    plt.grid()
+
+    shift = 0
+    for x, y in zip(df1.year, df1['nuclear JPN']):
+        label = df1.loc[x].accident_deaths
+        print(label)
+        if label > 0:
+            plt.annotate(label.astype('int32'), (x, y + shift), fontweight='bold')
+            shift = shift * -1
+
+    shift = 0
+    for x, y in zip(df2.year, df2['nuclear UKR']):
+        label = df2.loc[x].accident_deaths
+        print(label)
+        if label > 0:
+            plt.annotate(label.astype('int32'), (x, y + shift), fontweight='bold')
+            shift = shift * -1
+
+    plt.show()
 
     return
 
@@ -156,5 +232,6 @@ if __name__ == '__main__':
     show_plot1(df)
     show_plot2(df)
     show_plot3(df)
+    show_plot4(df)
 
     exit(0)
