@@ -167,7 +167,7 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
     df9['change2'] = np.where((df9.op_reactors_2018 == 0), 0, df9.change2)
     df9 = df9.T
     rowlabels = ['rank 1998', 'rank 2018', 'delta ranking', 'reactors 1998', 'reactors 2018', 'delta reactors', 'deaths']
-    the_table = plt.table(cellText=df9.values,
+    the_table = plt.table(cellText=df9.astype('int').values,
                           rowLabels=rowlabels,
                           colLabels=df9.columns,
                           cellLoc='right', rowLoc='center',
