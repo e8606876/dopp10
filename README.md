@@ -1,6 +1,6 @@
 # dopp10
 
-NEXT MEETING: Sun 18.01. 18:00h
+NEXT MEETING: Sun 24.01. 18:00h
 
 https://tuwien.zoom.us/j/5172562790
 
