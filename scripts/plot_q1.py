@@ -160,9 +160,9 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
                             'movement', 'rank2018', 'rank1998'])
 
     df8.plot(kind="bar")
-    plt.title('Nuclear production ranking 1998 vs 2018')
+    plt.title('Nuclear production comparison 1998, 2018')
     plt.xlabel(xlabel='')
-    plt.ylabel(ylabel='production in quadrillion btu')
+    plt.ylabel(ylabel='production in EJ')
     plt.legend(loc='upper right')
 
     plt.gca().set_xticks([])
@@ -204,9 +204,9 @@ def show_plot4(df):
     df2.plot(kind='line', x='year', y='renewables UKR', color='darkgreen', ax=ax, linewidth=3)
     df2.plot(kind='line', x='year', y='nuclear UKR', color='darkolivegreen', ax=ax, linewidth=3)
 
-    plt.title('nuclear energy prod JPN vs UKR')
+    plt.title('Comparison of energy prod in JPN and UKR')
     plt.xlabel(xlabel='years')
-    plt.ylabel(ylabel='production in quad btu')
+    plt.ylabel(ylabel='production in EJ')
     plt.legend(loc='upper left')
     plt.grid()
 
