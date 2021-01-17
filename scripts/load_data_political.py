@@ -92,9 +92,8 @@ def load_political_data():
             axis=1, join='outer')
 
 
-    #merge.iloc[:,3] = merge.iloc[:,3].unstack().interpolate().stack()
+    merge.iloc[:,3] = merge.iloc[:,3].unstack().interpolate().stack()
     merge.iloc[:,:3] = merge.iloc[:,:3].fillna(value=0)
-    #merge.iloc[:,4:6] = merge.iloc[:,4:6].fillna(value='None')
     
     merge = merge.sort_index(level=['country'])
     
