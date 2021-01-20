@@ -1,6 +1,5 @@
 import pandas as pd
 import seaborn as sns
-import matplotlib
 import matplotlib.pyplot as plt
 
 
@@ -38,11 +37,14 @@ def corr_matrix(df):
 
 def plot_0(df): #done
     # How well does the use of nuclear energy correlate with changes in carbon emissions (added info about renewables).
+    ########################
+    # Aggregate fossil fuel energy production and compare to nuclear and emission
+    df['fossil_production_btu'] = df['coal_prod_btu'] + df['oil_prod_btu'] + df['gas_prod_btu']
+    ########################
     x = 'year'
-    y1 = 'renewables_prod_btu'
+    y1 = 'fossil_production_btu'
     y2 = 'nuclear_prod_btu'
     y3 = 'co2'
-    y4 = 'consumption_co2'
 
     df0 = df[['year', 'consumption_co2', 'co2']]
     df0 = df0.groupby(['year']).sum()   # otherwise, barplot shows different color for every countryreset_index
@@ -52,15 +54,13 @@ def plot_0(df): #done
     sns.set_style('whitegrid')
     ax1.set_xlabel('Year')
     ax1.set_ylabel('Emissions (Mt CO2)')
-    plt.bar(x=df0.index - 0.35/2, height=df0[y3], width=0.35, alpha=0.4, align='center',
+    plt.bar(x=df0.index - 0.5, height=df0[y3], width=0.35, alpha=0.4, align='center',
             label='Annual production-based co2 emissions')
-    plt.bar(x=df0.index + 0.35/2, height=df0[y4], width=0.35, alpha=0.4, align='center',
-            label='Annual consumption-based co2 emissions')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
     ax2.set_ylabel('Production (quad BTU)')
-    sns.lineplot(data=df, x=x, y=y1, ax=ax2, color='green', ci=None, label='Renewable energy production', legend=False)
-    sns.lineplot(data=df, x=x, y=y2, ax=ax2, color='yellow', label='Nuclear energy production', legend=False)
+    sns.lineplot(data=df, x=x, y=y1, ax=ax2, color='green', ci=None, label='Fossil fuel energy production', legend=False)
+    sns.lineplot(data=df, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='Nuclear energy production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
@@ -186,10 +186,10 @@ if __name__ == '__main__':
     # Visualizations:
     # corr_matrix(df)
     plot_0(df)
-    plot_1(df)  # USA
-    plot_2(df)  # CHN
-    plot_3(df)  # FRA
-    plot_4(df)  # IRN
+    # plot_1(df)  # USA
+    # plot_2(df)  # CHN
+    # plot_3(df)  # FRA
+    # plot_4(df)  # IRN
 
 ########################################################
     # Tests:
