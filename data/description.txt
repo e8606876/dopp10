@@ -54,3 +54,11 @@ Adjusted net national income per capita (current US$)
 Adjusted net national income per capita (annual % growth)
 	Folder: API_NY.ADJ.NNTY.PC.KD.ZG_DS2_en_csv_v2_1745488
 	Source: https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.KD.ZG
+
+CO2 & GHG emissions:
+    File: owid-co2-data.csv
+    Source: https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions
+
+Historical CO2 emissions:
+    File: historical_emission.csv
+    Source: https://www.climatewatchdata.org/data-explorer/historical-emissions

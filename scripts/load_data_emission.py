@@ -1,14 +1,25 @@
 import pandas as pd
+import logging
+import country_converter
+import pycountry
+
+# initialize CountryConverter as cc and disable warnings
+country_converter.logging.getLogger().setLevel(logging.CRITICAL)
+cc = country_converter.CountryConverter()
+# dictionary for country replacements (that cannot be read by country_converter)
+# using current ones for outdated names, e.g. 'USSR' --> 'Russia'
+_dict_country_repl = {'UK': 'United Kingdom', 'USSR': 'Russia', 'Soviet Union': 'Russia', 'East Germany': 'Germany',
+                      'Illinois': 'US', 'Tawian': 'Taiwan', 'Yugoslavia': 'Serbia', 'Scotland': 'United Kingdom'}
 
 
-def load_emission_data():
+def load_emission_data1():
     """ 
-    Load all emission data files and combine them into a single Pandas DataFrame.
+    Load emission data files from 'owid-co2-data.csv' and combine them into a single Pandas DataFrame.
     Common data structure: 0-year, 1-country code, 2+-features.
     Check for correct typing.
 
     return:
-    emission_data: data frame containing different emission data per country per year.
+    df_emission_data: data frame containing different emission data per country per year.
     """
 
     path = '../data/owid-co2-data.csv'
@@ -21,36 +32,89 @@ def load_emission_data():
     df_emission_data = df_emission_data[new_cols].drop(['country'], axis=1)
     # Rename iso_code to country_code and convert to string.
     df_emission_data[['iso_code']] = df_emission_data[['iso_code']].astype('string')
-    df_emission_data = df_emission_data.rename(columns={'iso_code': 'country_code'})
+    df_emission_data = df_emission_data.rename(columns={'iso_code': 'country'})
+
+    # Resize data
+    # Only keep countries (check len(country_code) == 3) - raw data contains continental data, etc. with a blank
+    # country code (i.e. length 0).
+    df_emission_data = df_emission_data[df_emission_data['country'].str.len() == 3]
+
+    # Keep most interesting columns:
+    # TODO: revise
+    # df_emission_data = df_emission_data.drop(df_emission_data.iloc[:, -5:-2], axis=1)  # remove energy consumption columns
+    # df_emission_data = df_emission_data.drop(df_emission_data.iloc[:, 16:26], axis=1)  # delete cement,... produc. emission
+    # df_emission_data = df_emission_data.drop(['gdp', 'trade_co2', 'trade_co2_share'], axis=1)
+    # df_emission_data = df_emission_data.drop(df_emission_data.iloc[:, -7:-1], axis=1)  # remove non-co2 columns
+    df_emission_data = df_emission_data[['year', 'country', 'co2', 'consumption_co2', 'cumulative_co2', 'population']]
     return df_emission_data
 
 
-def resize_emission(df):
-    """ Index dataframe and eliminate non-country specific data.
-
-    Attention: When handling NaN values look at the values of a specific column, if there exists a NaN value
-    above/below a 0 entry, it is highly possible that NaN are truly missing values.
-
-    Time-range: 1980-2018
+def load_emission_data2():
+    """
+    Load emission data files from 'historical_emissions.csv' and combine them into a single Pandas DataFrame.
+    Common data structure: 0-year, 1-country code, 2+-features.
+    Check for correct typing.
 
     return:
-    trimmed down and somewhat ordered emission_data."""
-    data_emission_i = df.copy()
-    # Only keep countries (check len(country_code) == 3) - raw data contains continental data, etc. with a blank
-    # country code (i.e. length 0).
-    data_emission_i = data_emission_i[data_emission_i['country_code'].str.len() == 3]
-    # Set index on country_code and year (group by country_code).
-    # data_emission_i = data_emission_i.set_index(['country_code', 'year'])
-    # Keep most interesting columns:
-    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -5:-2], axis=1)  # remove energy consumption columns
-    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, 16:26], axis=1)  # delete cement,... produc. emission
-    data_emission_i = data_emission_i.drop(['gdp', 'trade_co2', 'trade_co2_share'], axis=1)
-    data_emission_i = data_emission_i.drop(data_emission_i.iloc[:, -7:-1], axis=1)  # remove non-co2 columns
-    return data_emission_i
+    df_energy_emission: data frame containing energy emission data per country per year.
+    """
+    path_2 = '../data/historical_emissions.csv'
+    df_energy_emission = pd.read_csv(path_2, sep=',')
+
+    cols_drop = ['Data source', 'Gas', 'Unit']
+
+    # Shift data to a new table layout
+    df_energy_emission.drop(cols_drop, axis=1, inplace=True)
+    df_energy_emission.rename(columns={'Country': 'country'}, inplace=True)
+    df_energy_emission = df_energy_emission.melt(id_vars=['country', 'Sector'], var_name='year', value_name='CO2(Mt)')
+    # pivot table to have sectors as columns
+    df_energy_emission = pd.pivot_table(df_energy_emission, values='CO2(Mt)', index=['year', 'country'],
+                                        columns='Sector').reset_index()
+
+    # change type of columns
+    df_energy_emission[['year']] = df_energy_emission[['year']].astype('int32')
+    df_energy_emission[['country']] = df_energy_emission[['country']].astype('string')
+
+    # drop world
+    df_energy_emission = df_energy_emission[df_energy_emission.country != 'World']
+
+    # convert country names to ISO3
+    df_energy_emission['country'] = cc.convert(df_energy_emission['country'].to_list(), to='ISO3')
+
+    # Aggregate 'Building' and 'O'ther Fuel Combustion' together, since there is no description for 'Building' in the
+    # official documentation --> http://cait.wri.org/docs/CAIT2.0_CountryGHG_Methods.pdf
+    df_energy_emission['Other'] = df_energy_emission['Other Fuel Combustion'] + df_energy_emission['Building']
+    df_energy_emission.drop(['Other Fuel Combustion', 'Building'], axis=1, inplace=True)
+    return df_energy_emission
+
+
+def load_emission_data():
+    """
+    Merge df1, df2 into a single dataframe via outer join and only keep valid countries.
+
+    Time range: 1945 and above
+    """
+    df1 = load_emission_data1()
+    df2 = load_emission_data2()
+
+    result = df1.merge(df2, how='outer', on=['country', 'year'])
+
+    # Since there are some aggregated values (e. g. WLD for world) remove all rows which don't have a valid
+    # ISO 3166 Alpha-3 code.
+    alpha_3_list = [country.alpha_3 for country in list(pycountry.countries)]  # all valid codes
+    valid_entry = result['country'].isin(alpha_3_list)  # boolean series if each row is valid or not
+    result = result.loc[valid_entry]
+    # invalid = set(result.loc[~valid_entry]['country'].tolist())
+    # print('invalid', invalid)
+
+    # Limit years from 1945 and above
+    result = result[result.year > 1944]
+    return result
 
 
 if __name__ == '__main__':
     """ Main program. """
-    data_emission = resize_emission(load_emission_data())
-    # data_emission.info()
-    b = 0  # placeholder for dataframe visualization via debugger
+    df_emission = load_emission_data()
+    df_emission.info()
+
+    exit(0)

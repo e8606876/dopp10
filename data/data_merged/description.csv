@@ -1,17 +1,14 @@
 year, year of observation
 country, ISO 3166 Alpha-3 code
 co2, Annual production-based emissions of carbon dioxide (CO2) measured in million tonnes per year
-co2_growth_prct, Percentage change in CO2 emissions from one year relative to the previous year
-co2_growth_abs, Annual change in CO2 emissions from one year relative to the previous year measured in million tonnes
 consumption_co2, Annual consumption-based CO2 emissions measured in million tonnes per year
-co2_per_capita, Average per capita CO2 emissions measured in tonnes per year
-consumption_co2_per_capita, Per capita consumption-based CO2 emissions measured in tonnes per year
-share_global_co2, National or regional annual CO2 emissions measured as a percentage of the global total
 cumulative_co2, Cumulative emissions of CO2 from 1751 through to the given year measured in million tonnes
-share_global_cumulative_co2, National or regional annual cumulative CO2 emissions measured as a share of the global total
-co2_per_gdp, CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
-consumption_co2_per_gdp, Consumption-based CO2 emissions measured per unit of gross domestic product. GDP is adjusted for inflation and cross-country price differences (PPP-adjusted)
-co2_per_unit_energy, CO2 emissions measured per unit of energy consumed
+Electricity/Heat, CO2 emissions due to electricity and heat generation in MtCO₂ per year
+Energy, Total CO2 emissions by the energy sector (Electricity/Heat; Fugitive Emissions; Manufacturing/Construction; Other Fuel Combustion; Transportation) in MtCO₂ per year
+Fugitive Emissions, CO2 emissions from Natural Gas Flaring/ Ventingin MtCO₂ per year
+Manufacturing/Construction, CO2 emissions due to fossil fuel combustion in the industry in MtCO₂ per year
+Other, CO2 emissions from other Fuel Combustion and other sectors in MtCO₂ per year
+Transportation, CO2 emissions from the combustion of fuel for all transport activity in MtCO₂ per year
 population, Total population
 GDP, GDP (current US$)
 GDP growth, GDP growth (annual %)
