@@ -1,20 +1,40 @@
+"""
+python module to create interactive map
+
+Requirements:
+
+conda install -c conda-forge pandas
+conda install -c conda-forge geoplot
+conda install -c conda-forge geopandas
+conda install -c conda-forge country_converter
+conda install -c conda-forge plotly
+
+conda install nbformat
+
+pip3 install pycountries
+
+"""
+
 import plotly.express as px
 import pandas as pd
-import ipywidgets as widgets
 
 
-def load_data_for_plot():
+def load_data_for_plot(f):
 
     desc_file = '../data/data_merged/description.csv'
     data_file = '../data/data_merged/data.csv'
 
-    desc = pd.read_csv(desc_file, sep=",", header=None)
-    desc.set_index(0, inplace=True)
+    d = pd.read_csv(desc_file, sep=",", header=None)
+
+    row = d.loc[d[0] == f]
+    feature_desc = row.iat[0, 1].strip()
+    # feature_idx = row.index[0]
+
     data = pd.read_csv(data_file, sep=",", decimal=".")
 
+    data = data[['year', 'country', f]]
 
-
-    return data, desc
+    return data, feature_desc
 
 
 def show_map(df, desc, feature, scope):
@@ -38,18 +58,13 @@ def show_map(df, desc, feature, scope):
         fig.layout.geo.lataxis.range = [-55, 90]
     fig.show()
 
-
-def wrapper(feature):
-    description = desc.loc[feature][1]
-    # change scope if necessary (usa, europe, asia, africa, north america, ...)
-    show_map(df, description, feature, 'world')
+    return
 
 
 # main function for testing
 if __name__ == '__main__':
-    df, desc = load_data_for_plot()
-
-    options = df.columns.drop(['year', 'country'])
-    widgets.interact(wrapper, feature=options)
+    feature = "operating_reactors"
+    df, desc = load_data_for_plot(feature)
+    show_map(df, desc, feature, 'world')  # usa, europe, asia, africa, north america, ...
 
     exit(0)
