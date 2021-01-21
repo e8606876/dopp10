@@ -46,6 +46,10 @@ def show_plot0(df):
     plt.legend(loc='upper left')
     plt.xlim(df['year'].min(), df['year'].max())
 
+    save = True
+    if save:
+        plt.savefig('../figures/q1_plot1.pdf', bbox_inches='tight')
+
     plt.show()
     return
 
@@ -187,6 +191,10 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
 
     plt.subplots_adjust(bottom=0.3)
 
+    save = True
+    if save:
+        plt.savefig('../figures/q1_plot2.pdf', bbox_inches='tight')
+
     plt.show()
     return
 
@@ -239,9 +247,9 @@ def show_plot4(df):
 if __name__ == '__main__':
     df = load_data_q1()
     show_plot0(df)
-    show_plot1(df)
-    show_plot2(df)
+    # show_plot1(df)
+    # show_plot2(df)
     show_plot3(df)
-    show_plot4(df)
+    # show_plot4(df)
 
     exit(0)
