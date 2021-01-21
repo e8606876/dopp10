@@ -8,7 +8,7 @@ import numpy as np
 
 
 def load_data_q1():
-    desc_file = '../data/data_merged/description.csv'
+    # desc_file = '../data/data_merged/description.csv'
     data_file = '../data/data_merged/data.csv'
 
     data = pd.read_csv(data_file, sep=",", decimal=".")
@@ -172,7 +172,8 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
     df9['change2'] = np.where((df9.op_reactors_1998 == 0), 0, df9.change2)
     df9['change2'] = np.where((df9.op_reactors_2018 == 0), 0, df9.change2)
     df9 = df9.T
-    rowlabels = ['rank 1998', 'rank 2018', 'delta ranking', 'reactors 1998', 'reactors 2018', 'delta reactors', 'deaths']
+    rowlabels = ['rank 1998', 'rank 2018', 'delta ranking', 'reactors 1998', 'reactors 2018', 'delta reactors',
+                 'deaths']
     the_table = plt.table(cellText=df9.astype('int').values,
                           rowLabels=rowlabels,
                           colLabels=df9.columns,
@@ -199,10 +200,12 @@ def show_plot4(df):
 
     ax = plt.gca()
 
-    df1.plot(kind='line', x='year', y='renewables JPN', color='green', ax=ax, linewidth=3)
     df1.plot(kind='line', x='year', y='nuclear JPN', color='yellow', ax=ax, linewidth=3)
-    df2.plot(kind='line', x='year', y='renewables UKR', color='darkgreen', ax=ax, linewidth=3)
-    df2.plot(kind='line', x='year', y='nuclear UKR', color='darkolivegreen', ax=ax, linewidth=3)
+    df1.plot(kind='line', x='year', y='renewables JPN', color='green', ax=ax, linewidth=3)
+    df2.plot(kind='line', x='year', y='nuclear UKR', color='yellow', linestyle='dashed', ax=ax,
+             linewidth=3)
+    df2.plot(kind='line', x='year', y='renewables UKR', color='green', linestyle='dashed', ax=ax,
+             linewidth=3)
 
     plt.title('Comparison of energy prod in JPN and UKR')
     plt.xlabel(xlabel='years')
@@ -227,8 +230,6 @@ def show_plot4(df):
             shift = shift * -1
 
     plt.show()
-
-    return
 
 
 # main function for testing
