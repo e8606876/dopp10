@@ -22,12 +22,14 @@ _dict_country_repl = {'UK':'United Kingdom', 'USSR':'Russia', 'Soviet Union':'Ru
 def load_political_data():
     # read data from diffenernt datasets in the category 'political'
         
-    # nuclear wrheads
+    # nuclear warheads
     # read file and exclude last (empty) line
     warheads = pd.read_csv('../data/nuclear_warheads_1945_2016.csv', 
                            sep=';',thousands='.', decimal=',').iloc[:-1]
     warheads['Year'] = warheads['Year'].astype('int')
     warheads = warheads.set_index('Year')
+    # extent years to 2020 and interpolate
+    warheads = warheads.reindex(np.arange(1945,2021,dtype='int'), method='ffill')
     # transform datafame from 2D to MultiIndex
     warheads = warheads.stack()
     warheads = warheads.reset_index()
@@ -35,7 +37,7 @@ def load_political_data():
     warheads.columns = ['year', 'country', 'nuclear_warheads']
     warheads['country'] = cc.convert(warheads['country'].to_list(), to='ISO3')
     warheads = warheads.set_index(['year', 'country'])
-    
+
     
     # research expenditure
     research = pd.read_csv('../data/SCN_DS_16122020083400698.csv')
@@ -90,10 +92,6 @@ def load_political_data():
     merge = pd.concat(
             [reactors,warheads,accidents,research,democracy],
             axis=1, join='outer')
-
-
-    merge.iloc[:,3] = merge.iloc[:,3].unstack().interpolate().stack()
-    merge.iloc[:,:3] = merge.iloc[:,:3].fillna(value=0)
     
     merge = merge.sort_index(level=['country'])
     

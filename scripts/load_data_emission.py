@@ -18,6 +18,9 @@ def load_emission_data1():
     Common data structure: 0-year, 1-country code, 2+-features.
     Check for correct typing.
 
+    Missing values are mostly due to the fact that no information has been recorded in the respective category for a
+    specific year/ country , hence no specific handling of missing values was applied (e.g. interpolation etc.).
+
     return:
     df_emission_data: data frame containing different emission data per country per year.
     """
@@ -33,11 +36,6 @@ def load_emission_data1():
     # Rename iso_code to country_code and convert to string.
     df_emission_data[['iso_code']] = df_emission_data[['iso_code']].astype('string')
     df_emission_data = df_emission_data.rename(columns={'iso_code': 'country'})
-
-    # Resize data
-    # Only keep countries (check len(country_code) == 3) - raw data contains continental data, etc. with a blank
-    # country code (i.e. length 0).
-    df_emission_data = df_emission_data[df_emission_data['country'].str.len() == 3]
 
     # Keep most interesting columns:
     # TODO: revise
@@ -107,8 +105,9 @@ def load_emission_data():
     # invalid = set(result.loc[~valid_entry]['country'].tolist())
     # print('invalid', invalid)
 
-    # Limit years from 1945 and above
+    # Limit years from 1945 and above and convert 'country' type from object to string
     result = result[result.year > 1944]
+    result['country'] = result['country'].astype('string')
     return result
 
 

@@ -5,7 +5,7 @@ consumption_co2, Annual consumption-based CO2 emissions measured in million tonn
 cumulative_co2, Cumulative emissions of CO2 from 1751 through to the given year measured in million tonnes
 Electricity/Heat, CO2 emissions due to electricity and heat generation in MtCO₂ per year
 Energy, Total CO2 emissions by the energy sector (Electricity/Heat; Fugitive Emissions; Manufacturing/Construction; Other Fuel Combustion; Transportation) in MtCO₂ per year
-Fugitive Emissions, CO2 emissions from Natural Gas Flaring/ Ventingin MtCO₂ per year
+Fugitive Emissions, CO2 emissions from Natural Gas Flaring/ Venting in MtCO₂ per year
 Manufacturing/Construction, CO2 emissions due to fossil fuel combustion in the industry in MtCO₂ per year
 Other, CO2 emissions from other Fuel Combustion and other sectors in MtCO₂ per year
 Transportation, CO2 emissions from the combustion of fuel for all transport activity in MtCO₂ per year
