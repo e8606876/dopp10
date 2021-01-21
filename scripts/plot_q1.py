@@ -47,7 +47,6 @@ def show_plot0(df):
     plt.xlim(df['year'].min(), df['year'].max())
 
     plt.show()
-
     return
 
 
@@ -159,7 +158,10 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
     df8 = df7.drop(columns=['accident_deaths', 'op_reactors_1998', 'op_reactors_2018',
                             'movement', 'rank2018', 'rank1998'])
 
-    df8.plot(kind="bar")
+    # figsize
+    fig, ax = plt.subplots(figsize=(16, 9))
+
+    df8.plot(kind="bar", ax=ax)
     plt.title('Nuclear production comparison 1998, 2018')
     plt.xlabel(xlabel='')
     plt.ylabel(ylabel='production in EJ')
@@ -180,7 +182,8 @@ def show_plot3(df):  # top 10 nuclear energy producers 1980 vs 2018
                           cellLoc='right', rowLoc='center',
                           loc='bottom')
     the_table.auto_set_font_size(False)
-    the_table.set_fontsize(10)
+    the_table.set_fontsize(14)
+    the_table.scale(1, 2)
 
     plt.subplots_adjust(bottom=0.3)
 
