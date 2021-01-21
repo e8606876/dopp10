@@ -20,7 +20,7 @@ def load_data_q1():
 
     # convert quad btu in EJ
     conversion_factor = 1.055
-    columns = data.columns.drop(['year', 'country'])
+    columns = data.columns.drop(['year', 'country', 'accident_deaths', 'operating_reactors'])
     for column in columns:
         data[column] = data[column]*conversion_factor
 
