@@ -45,7 +45,7 @@ def plot_pie(df):  # done
     return
 
 
-def plot_stacked(df):  # done
+def plot_stacked(df):  # TODO:delete?
     # Look at CO2 emission in the energy sector
 
     df1 = df[
@@ -83,7 +83,7 @@ def plot_stacked(df):  # done
     return
 
 
-def plot_corr1(df):  # absolute
+def plot1_world_abs(df):  # absolute-done
     # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production.
     x = 'year'
     y0 = 'renewables_prod_btu'
@@ -119,7 +119,7 @@ def plot_corr1(df):  # absolute
     return
 
 
-def plot_2_world_rel(df):  # relative - done?
+def plot2_world_rel(df):  # relative - done?
     # I took a closer look at the change of fossil fuel/ nuclear/ renewables energy production
     # WORLD-view: Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
     df_country = df.copy()
@@ -165,7 +165,7 @@ def plot_2_world_rel(df):  # relative - done?
     return
 
 
-def plot_3_jpn_rel(df):  # done? -> look at explanation in comment below.
+def plot3_jpn_rel(df):  # done? -> look at explanation in comment below.
     # Look at interesting points (JPN): you could see that from 2010 (shortly after fukushima had its major accident on
     # 2011-03-11) the nuclear production went down immensely as the renewable energy production experienced a new surge
     # while fossil fuel (combustion) energy production also declined over time. However, CO2 emissions from electricity
@@ -220,7 +220,7 @@ def plot_3_jpn_rel(df):  # done? -> look at explanation in comment below.
     return
 
 
-def plot_4(df):
+def plot_4(df):  # TODO: plot interesting values from 1990 and 2017/2018 and display the growth (in percent, etc.)
     # Look at a country with relative high co2 emissions, but little nuclear power production.
     # Maybe visualize some of them and see how nuclear energy production influences those countries.
     # e.g. high co2 emission countries --> high vs. low nuclear power production.
@@ -254,14 +254,14 @@ if __name__ == '__main__':
     df, desc = load_df()
 
     # Visualizations:
-    corr_matrix(df)
-    plot_pie(df)  # CO2 emission in the energy sector --> pie plot
-    plot_stacked(df)  # CO2 emission in the energy sector --> stacked bar chart
-    plot_corr1(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
-    plot_2_world_rel(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
+    # corr_matrix(df) #done
+    # plot_pie(df)  # CO2 emission in the energy sector --> pie plot #done
+    # plot_stacked(df)  # CO2 emission in the energy sector --> stacked bar chart (TODO maybe just get rid of it)
+    # plot1_world_abs(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
+    # plot2_world_rel(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
                           # (relative to a given year) with focus on important events (Chernobyl,
                           # World Finance Crisis, Fukushima).
-    plot_3_jpn_rel(df)  # JPN focus on change after Fukushima
+    plot3_jpn_rel(df)  # JPN focus on change after Fukushima
     # plot_4(df)  # IRN
 
     ########################################################

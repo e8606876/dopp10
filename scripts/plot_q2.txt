@@ -1,0 +1,24 @@
+corr_matrix: Heat map
+Visualization of correlations between data from energy production/ consumption and CO2 emission due to the enrgy sector.
+The focus here lies on correlation between nuclear energy production and CO2 emission due to electricity/ heat
+generation.
+
+plot_pie: Pie chart
+Gives an overview of the individual CO2 emission contributors when talking about the energy sector - also shows that
+electricity/ heat generation only contributes to around half (47%) of total CO2 emissions in this sector.
+
+plot1_world_abs: Absolute values - world
+Absolute values of the 3 methods of energy (electricity) production compared to CO2 emissions per year. As can be seen
+fossil fuel energy production correlates very well with CO2 emission in the electricity/ heat sector, since energy
+production by renewables or through nuclear fission generate only a very small amount of CO2 emissions compared to
+fossil fuel energy production.
+
+plot2_world_rel: Relative values - world
+Annual electricity/ heat generation global CO2 emissions are plotted in comparison to the three main electricity
+production types relative to the year 2010. Some notable historic events have been annotated to the nuclear energy
+line to allow possible interpretation of its behaviour. It is apparent that the nuclear disaster in Fukushima had a
+palpable impact on future worldwide nuclear energy production, however energy-related CO2 emission does not seem to
+have been impacted in the same way. This can be explained that energy production by fossil fuel combustion still grew
+over the years following the catastrophic event in Japan, which is the main reason for CO2 emissions in this sector.
+
+
