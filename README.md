@@ -8,7 +8,7 @@ https://tuwien.zoom.us/j/5172562790
 #Deliverables
 - Jupyter notebook
 - 2-page pdf (management summary)
-- presentation (slides)
+- presentation [Google Sheet](https://docs.google.com/presentation/d/13nEckj4oa-7fFlfO0wVwFLBFe0wlcqFFWan7U2nFrRk/edit?usp=sharing)
 
 #Deadlines
 - Mo 14.12. 23:55h one pager -> johannes
