@@ -1,6 +1,6 @@
 # dopp10
 
-NEXT MEETING: Sun 18.01. 18:00h
+NEXT MEETING: Sun 24.01. 18:00h
 
 https://tuwien.zoom.us/j/5172562790
 
@@ -8,7 +8,7 @@ https://tuwien.zoom.us/j/5172562790
 #Deliverables
 - Jupyter notebook
 - 2-page pdf (management summary)
-- presentation (slides)
+- presentation [Google Sheet](https://docs.google.com/presentation/d/13nEckj4oa-7fFlfO0wVwFLBFe0wlcqFFWan7U2nFrRk/edit?usp=sharing)
 
 #Deadlines
 - Mo 14.12. 23:55h one pager -> johannes
@@ -16,3 +16,6 @@ https://tuwien.zoom.us/j/5172562790
 - 20.1. reserve time slot for final presentation
 - 27.1. 8:00h upload final hand-in (zip + presentation)
 - 27.1. presentation all groups
+
+# Problems
+load_data_political.py line 95
