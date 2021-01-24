@@ -1,0 +1,6 @@
+year, year of observation
+country, ISO 3166 Alpha-3 code
+prod_electric, Generation (billion kWh)
+prod_electric_nuclear, Nuclear (billion kWh)
+prod_electric_fossil, Fossil fuels (billion kWh)
+prod_electric_renewable, Renewables + Hydroelectric pumped storage (billion kWh)
