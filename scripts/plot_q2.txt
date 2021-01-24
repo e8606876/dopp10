@@ -28,7 +28,7 @@ plot3_jpn_abs: Absolute values - Japan
 Annual electricity/ heat generation CO2 emissions are plotted in comparison to energy production by fossil fuels
 and nuclear fission in Japan. After the nuclear reactor accident in 2011 nuclear energy production reduced greatly
 (2014 even producing zero electricity by nuclear energy). Due to this immense drop CO2 emissions peaked at around 2013,
-since fossil fuel electricity generation has not been impacted negligibly by the nuclear disaster.
+since fossil fuel electricity generation is the main CO2 emission contributor.
 
 plot3_jpn_rel: Relative values - Japan
 

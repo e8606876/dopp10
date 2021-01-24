@@ -127,7 +127,7 @@ def plot1_world_abs(df):  # absolute-done
     return
 
 
-def plot2_world_rel(df):  # relative - done?
+def plot2_world_rel(df):  # relative - done
     # I took a closer look at the change of fossil fuel/ nuclear/ renewables energy production
     # WORLD-view: Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
     df_country = df.copy()
@@ -404,16 +404,20 @@ if __name__ == '__main__':
     df, desc = load_df()
 
     # Visualizations:
-    # corr_matrix(df) #done
-    # plot_pie(df)  # CO2 emission in the energy sector --> pie plot #done
-    # plot1_world_abs(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
-    # plot2_world_rel(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
+    corr_matrix(df) #done
+    plot_pie(df)  # CO2 emission in the energy sector --> pie plot #done
+    plot1_world_abs(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
+    plot2_world_rel(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
                           # (relative to a given year) with focus on important events (Chernobyl,
                           # World Finance Crisis, Fukushima).
     plot3_jpn_abs(df)
     plot3_jpn_rel(df)  # JPN focus on change after Fukushima
-    # plot4_fra_abs(df)
+    plot4_fra_abs(df)
     # plot4_fra_rel(df)   # TODO
+    # plot5_usa_abs(df)   # TODO
+    # plot5_usa_rel(df)   # TODO
+    # plot6_chn_abs(df)   # TODO
+    # plot6_chn_rel(df)   # TODO
 
     # plot_4(df)
 
