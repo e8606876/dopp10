@@ -1,7 +1,8 @@
 corr_matrix: Heat map
 Visualization of correlations between data from energy production/ consumption and CO2 emission in the energy sector.
-The focus here lies on correlation between nuclear energy production and CO2 emission due to electricity/ heat
-generation.
+The focus here lies on correlation between nuclear electricity production and CO2 emission due to electricity/ heat
+generation in a time span from 1990 to 2018. The correlation matrix acts as an indicator to possible interesting
+correlation for further investigation.
 
 plot_pie: Pie chart
 Gives an overview of the individual CO2 emission contributors when talking about the energy sector - also shows that
@@ -9,38 +10,76 @@ electricity/ heat generation contributes to around half (47%) of total CO2 emiss
 production by fossil fuel combustion being the main contributor.
 
 plot1_world_abs: Absolute values - World
-Absolute values of the 3 methods of energy (electricity) production (see Josef's part - q1) compared to CO2 emissions per year. As can be seen
-fossil fuel energy production correlates very well with CO2 emission in the electricity/ heat sector, since energy
-production by renewables or through nuclear fission generate only a very small indirect amount of CO2 emissions compared
-to fossil fuel energy production.
+Absolute values of the 3 main categories of electricity production compared to electricity and heat generation-related CO2 emissions
+per year. The plot shows that electricity production by fossil fuel combustion (mainly coal, gas, oil) correlates very well with CO2 emission in the electricity/ heat
+sector, since energy production by renewables or through nuclear fission generate only a very small indirect amount of
+CO2 emissions compared to fossil fuel energy production. The nuclear reactor incident and world financial crisis of 2008
+have been annotated and are further investigated.
 
 plot2_world_rel: Relative to year 2010 - World
-Annual electricity/ heat generation global CO2 emissions are plotted in comparison to energy production by fossil fuels
-and nuclear fission relative to the year 2010. Some notable historic events have been annotated to the nuclear energy
-line to allow possible interpretation of its trend. It is apparent that the nuclear disaster in Fukushima had a
+Annual electricity/ heat generation global CO2 emissions are plotted in comparison to electricity production by fossil fuels
+and nuclear fission relative to the year 2010. It is apparent that the nuclear disaster in Fukushima had a
 palpable impact on future worldwide nuclear energy production, however energy-related CO2 emissions do not seem to
 have been impacted in the same way. This can be explained that energy production by fossil fuel combustion still grew
 over the years following the catastrophic event in Japan, which is the main reason for CO2 emissions in this sector. It
 can be seen that the financial crisis in 2008 had a significant impact on both CO2 emissions as well as energy
-production (causation: lower energy production by fossil fuels means lower CO2 emissions in the energy sector).
+production.
 
 plot3_jpn_abs: Absolute values - Japan
-Annual electricity/ heat generation CO2 emissions are plotted in comparison to energy production by fossil fuels
-and nuclear fission in Japan. After the nuclear reactor accident in 2011 nuclear energy production reduced greatly
-(2014 even producing zero electricity by nuclear energy). Due to this immense drop CO2 emissions peaked at around 2013,
-since fossil fuel electricity generation is the main CO2 emission contributor.
+Japan poses as an interesting country, especially since it is one of the largest nuclear energy producers, as well as
+the historic event in Fukushima in 2011 (reactor meltdown).
+Annual electricity/ heat generation CO2 emissions are plotted in comparison to electricity production by fossil fuels,
+renewables and nuclear energy. After the nuclear reactor accident in 2011 nuclear energy production reduced greatly
+(2014 even producing zero electricity by nuclear energy). Due to this immense drop and continuous demand for electricity
+CO2 emissions peaked at around 2013, since fossil fuel electricity generation increased steeply, with it being the
+main contributor to CO2 emissions. CO2 emissions correlate (positively and) very strongly with fossil fuel electricity
+production (coeff = 0.994), while it correlates negatively with production by nuclear energy (coeff = -0.807).
 
 plot3_jpn_rel: Relative values - Japan
+Relative view of electricity generation trends relative to the year 2010 to further emphasize the development of
+electricity production by nuclear energy and fossil fuels.
+
+########################################################################################################################
+# The following few countries have been investigated, as they are among the top 3 of nuclear energy production
+contributors in the world. They can be taken as rough representatives of electricity production through nuclear energy
+and since they all lie in different continents, they can help in providing a rough overview of the current situation
+worldwide.
 
 plot4_fra_abs: Absolute values - France
+France produces most of its electricity through nuclear energy as it holds the largest share of electricity from nuclear
+power in the world. When taking a look a the correlation coefficient it becomes apparent that CO2 emissions still
+correlate more with electricity production by fossil fuels (coeff = 0.559) than by nuclear energy (coeff = -0.081). This
+again contributes to the fact that CO2 emissions in this sector are primarily caused by combustion of fossil fuels.
+Annual electricity/ heat generation CO2 emissions are plotted in comparison to electricity production by fossil fuels,
+renewables and nuclear energy. Impactful historic events have been annotated.
 
 plot4_fra_rel: Relative values - France
+Additional plot to visualize the change of electricity production by fossil fuels and nuclear energy relative to 2011.
+
 
 plot5_usa_abs: Absolute values - USA
+USA is one of the top CO2 emission contributors in the electricity/heat production sector, since the majority of
+energy is provided by means of fossil fuel combustion. It also comes first in nuclear energy production when compared to
+other countries globally. When looking at the plot, nuclear energy did not undergo a lot of changes the last couple of
+years, while CO2 emissions still fluctuated due to fossil energy electricity production. The correlation coefficient of
+fossil fuels to CO2 emissions is corr = 0.539, while the coefficient for nuclear energy is corr = 0.234.
 
 plot5_usa_rel: Relative values - USA
+Additional plot to further visualize the change of electricity production by fossil fuels and nuclear energy relative to
+2011.
 
 plot6_chn_abs: Absolute values - CHN
+China is currently the country with the highest CO2 emissions per country when it comes to emissions in the energy
+sector. Additionally it is one of the countries with the steepest rise in nuclear energy production.
+Annual electricity/ heat generation CO2 emissions are plotted in comparison to electricity production by fossil fuels,
+renewables and nuclear energy. Again, CO2 emissions correlate positively with electricity production by fossil fuels.
+Correlation of CO2 emissions with electricity production by nuclear energy (coeff = 0.897) and fossil
+fuels (coeff = 0.997) are both very high, whith emphasis on the fact that the majority of emissions result from
+production via fossil fuels.
 
 plot6_chn_rel: Relative values - CHN
+Emission and production values relative to the year of 2011. Even though this is marks the year of the Fukushima
+nuclear reactor accident, electricity production by nuclear energy rises as the line trend of electricity production by
+fossil fuels takes a small bend. The steep rise of nuclear energy (as well as the increase of production by renewables)
+might be a good indicator to why CO2 emissions began to decrease 2011 til around 2016.
 

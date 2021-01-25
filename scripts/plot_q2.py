@@ -1,43 +1,50 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy as np
-
-# TODO: Look at JPN, CHN, FRA, USA (absolute and relative side by side subplots) and give analysis:
-# TODO: growth of nuclear energy production from 1990 to 2017 and behaviour of CO2 emissions in the same time.
-# TODO: write a short description to every plot --> plot_q2.txt
-
-# TODO: remove renewables in relative country specific plots
-# TODO: format (ylim starting at 0 and limit y axis values for relative axes (don't show too many))
-# TODO: format plot to look like the others (x-/y-labels; annotation arrows; title; legend)
 
 
 def load_df():
-    """Load data_merged into a pandas dataframe."""
-    df_load = pd.read_csv('../data/data_merged/data.csv')
+    """Load data_merged and data_electrical and merge into a pandas dataframe."""
+    df_load_electric = pd.read_csv('../data/data_merged/data_electrical.csv')
+    df_load_primary = pd.read_csv('../data/data_merged/data.csv')
+    df_load = df_load_primary.merge(df_load_electric, how='outer', on=['country', 'year'])
     desc_df_emission = pd.read_csv('../data/data_merged/description.csv')
     # Reduce to relevant dataframe:
     df_e = df_load[['year', 'country', 'co2', 'consumption_co2', 'cumulative_co2', 'population', 'Electricity/Heat',
-                    'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions', 'cons_btu',
-                    'coal_cons_btu', 'gas_cons_btu', 'oil_cons_btu', 'nuclear_cons_btu', 'renewables_cons_btu',
-                    'prod_btu', 'coal_prod_btu', 'gas_prod_btu', 'oil_prod_btu', 'nuclear_prod_btu',
-                    'renewables_prod_btu']]
+                    'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions', 'prod_electric',
+                    'prod_electric_nuclear', 'prod_electric_fossil', 'prod_electric_renewable']]
     df_emission = df_e.copy()
-    df_emission['fossil_production_btu'] = df_emission['coal_prod_btu'] + df_emission['oil_prod_btu'] + df_emission[
-        'gas_prod_btu']
+    # Convert quad BTU to exajoules:
+    convert = ['prod_electric', 'prod_electric_nuclear', 'prod_electric_fossil', 'prod_electric_renewable']
+    df_emission[convert] = df_e[convert].multiply(3.6e-3)
+    # df_emission['fossil_production_btu'] = df_emission['coal_prod_btu'] + df_emission['oil_prod_btu'] + df_emission[
+    #     'gas_prod_btu']
     return df_emission, desc_df_emission
 
 
-def corr_matrix(df):  # done
+def corr_matrix(df):
     # Heatmap for correlation visualization.
-    fig, ax = plt.subplots()
-    fig.suptitle('Correlation matrix for CO2 emission and consumption/ production data from 1980 to 2018.', fontsize=16)
-    sns.heatmap(df.drop(['year', 'country'], axis=1).corr(), annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+    year = 1990
+
+    df_heatmap = df.copy()
+    df_heatmap = df_heatmap[df_heatmap['year'] >= year]
+    fig, ax = plt.subplots(figsize=[16, 9])
+    fig.suptitle('Correlation matrix of worldwide energy-related CO2 emissions and electricity production from '
+                 + str(year) + ' to 2018.', fontsize=16)
+    sns.heatmap(df_heatmap.drop(['year', 'country'], axis=1).corr(method='pearson'), annot=True, cmap='coolwarm',
+                vmin=-1, vmax=1)
     plt.show()
     return
 
 
-def plot_pie(df):  # done
+def corr(df, country):
+    df_country = df[['year', 'country', 'prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable',
+                     'Electricity/Heat']]
+    df_country_corr = df_country[df_country['country'] == str(country)].drop(['country', 'year'], axis=1).corr()
+    return df_country_corr
+
+
+def plot_pie(df):
     # Look at CO2 emission in the energy sector
 
     df1 = df[
@@ -48,172 +55,143 @@ def plot_pie(df):  # done
     df1.loc['Total'] = df[
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
-    df_pie.plot.pie(autopct="%.1f%%", title="Distribution of CO2 emissions in the energy sector", ylabel='')
+    df_pie.plot.pie(autopct="%.1f%%", title="Distribution of worldwide CO2 emissions in the energy sector", ylabel='')
     plt.show()
     return
 
 
-# def plot_stacked(df):  # TODO:delete! - ghost code as skeleton..
-#     # Look at CO2 emission in the energy sector
-#
-#     df1 = df[
-#         ['year', 'Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']]
-#     df1 = df1.groupby(['year']).sum()
-#
-#     y = [df1['Electricity/Heat'], df1['Transportation'], df1['Manufacturing/Construction'], df1['Other'],
-#          df1['Fugitive Emissions']]
-#     y0 = (y[0] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
-#     y1 = (y[1] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
-#     y2 = (y[2] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
-#     y3 = (y[3] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
-#     y4 = (y[4] / (y[0] + y[1] + y[2] + y[3] + y[4]) * 100)
-#
-#     percent = [y0, y1, y2, y3, y4]
-#
-#     fig, ax1 = plt.subplots()
-#     fig.subplots_adjust(hspace=.5, wspace=.5)
-#     ax1.set_xlim(1990, 2017)
-#
-#     colors = ['orange', 'darkgray', 'darkcyan', 'yellow', 'black']
-#     labels = ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']
-#
-#     ax1.set_xlabel('Year')
-#     ax1.set_ylabel('Emissions (Mt CO2)')
-#     plt.stackplot(df1.index, percent, labels=labels, colors=colors)
-#
-#     plt.title('100% stackplot of overall CO2 emissions in the energy sector')
-#     plt.xlabel(xlabel='Years')
-#     plt.ylabel(ylabel='CO2 emissions (%)')
-#     plt.legend(loc='lower left', bbox_to_anchor=(0, 0), bbox_transform=ax1.transAxes)
-#     plt.twinx()
-#     fig.tight_layout()
-#     plt.show()
-#     return
-
-
-def plot1_world_abs(df):  # absolute-done
+def plot1_world_abs(df):
     # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production.
     x = 'year'
-    y0 = 'renewables_prod_btu'
-    y1 = 'fossil_production_btu'
-    y2 = 'nuclear_prod_btu'
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
     y3 = 'Electricity/Heat'
 
+    # Aggregate for lineplots
+    df_line = df.groupby(['year']).sum()
+
+    # Aggregate for barplots
     df_bar = df[['year', 'Electricity/Heat']]
-    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every countryreset_index
+    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots()
-    # ax1.set_xlim(1990, 2018)
+    # Instantiate figure
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('Emissions (Mt CO2)')
-    # sns.lineplot(data=df, x=x, y=y3, ax=ax1, color='green', ci=None,
-    # label='Annual electricity/heat production co2 emissions', legend=False)
-    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production co2 emissions')
-
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')  # TODO
+    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Production (quad BTU)')
-    sns.lineplot(data=df, x=x, y=y0, ax=ax2, color='green', ci=None, label='Renewables energy production', legend=False)
-    sns.lineplot(data=df, x=x, y=y1, ax=ax2, color='brown', ci=None, label='Fossil fuel energy production',
+    ax2.set_ylabel('production in EJ')
+    sns.lineplot(data=df_line, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
+                 alpha=0.5, legend=False)
+    sns.lineplot(data=df_line, x=x, y=y1, ax=ax2, color='brown', ci=None, label='fossil fuel electricity production',
                  legend=False)
-    sns.lineplot(data=df, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='Nuclear energy production', legend=False)
+    sns.lineplot(data=df_line, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
+                 legend=False)
 
-    fig.suptitle('Nuclear energy production vs. CO2 emission in the electricity/heat sector', fontsize=16)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission - World', fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 52), xytext=(2011, 58), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+    plt.annotate('Financial \n crisis', xy=(2008, 47.3), xytext=(2008, 53.), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-
     fig.tight_layout()
+    ax1.set_ylim(0, 17000)
+    ax2.set_ylim(bottom=0)
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_plot1.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_plot1.png', bbox_inches='tight', dpi=300)
     return
 
 
-def plot2_world_rel(df):  # relative - done
-    # I took a closer look at the change of fossil fuel/ nuclear/ renewables energy production
-    # WORLD-view: Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
+def plot2_world_rel(df):
     df_country = df.copy()
     df_world = df_country.groupby('year').sum().reset_index()
 
     year_ref = 2010
-    for col in ['fossil_production_btu', 'nuclear_prod_btu', 'renewables_prod_btu']:
+    for col in ['prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable']:
         ref_val = df_world[df_world['year'] == year_ref][col].values[0]  # ref value of year_ref
         df_world[col + '_rel_val'] = df_world[col] / ref_val  # create new column with normalized value to ref_val
 
     df_bar = df[['year', 'Electricity/Heat']]
-    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every countryreset_index
+    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots()
-    ax1.set_xlim(1980, 2017)
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('CO2 Emissions (Mt)')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
 
-    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production co2 emissions')
+    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Energy production relative to %i' % year_ref)
-    sns.lineplot(data=df_world, x='year', y='nuclear_prod_btu_rel_val', ax=ax2, color='yellow',
-                 label='Nuclear energy production', legend=False)
-    # sns.lineplot(data=df_world, x='year', y='renewables_prod_btu_rel_val', ax=ax2, color='green',
-    #              label='Nuclear energy production', legend=False)
-    sns.lineplot(data=df_world, x='year', y='fossil_production_btu_rel_val', ax=ax2, color='brown',
-                 ci=None, label='Fossil fuel energy production', legend=False)
+    ax2.set_ylabel('electricity production relative to %i' % year_ref)
+    sns.lineplot(data=df_world, x='year', y='prod_electric_nuclear_rel_val', ax=ax2, color='yellow',
+                 label='nuclear electricity production', legend=False)
+    sns.lineplot(data=df_world, x='year', y='prod_electric_fossil_rel_val', ax=ax2, color='brown',
+                 ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle('Nuclear and fossil fuels energy production compared to CO2 emission from electricity and heat')
-    plt.annotate('Fukushima', xy=(2011, 0.96), arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission relative to ' + str(year_ref) + ' - World',
+                 fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 0.96), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2008, 0.8))  # if wonky: try 2012
-    plt.annotate('Chernobyl', xy=(1986, 0.53), arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 xytext=(1984, 0.35))
     plt.annotate('Financial crisis', xy=(2008, 0.99),
-                 arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 xytext=(2006, 1.1))
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.1))
     fig.tight_layout()
-    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax1.set_ylim(bottom=0)
+    ax2.set_ylim(bottom=0)
     plt.show()
     return
 
 
-def plot3_jpn_abs(df):  # absolute Japan
-    # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production
-    # in Japan.
-
+def plot3_jpn_abs(df):
     df_jpn = df.copy(deep=True)
     df_jpn = df_jpn[df_jpn['country'] == 'JPN']
 
     x = 'year'
-    y0 = 'renewables_prod_btu'
-    y1 = 'fossil_production_btu'
-    y2 = 'nuclear_prod_btu'
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
     y3 = 'Electricity/Heat'
 
     df_bar = df_jpn[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots()
-    ax1.set_xlim(1989, 2018)
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('Emissions (Mt CO2)')
-    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production CO2 emissions')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Production (quad BTU)')
-    sns.lineplot(data=df_jpn, x=x, y=y0, ax=ax2, color='green', ci=None, label='Renewables energy production',
+    ax2.set_ylabel('production in EJ')
+    sns.lineplot(data=df_jpn, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
                  alpha=0.4, legend=False)
-    sns.lineplot(data=df_jpn, x=x, y=y1, ax=ax2, color='brown', ci=None, label='Fossil fuel energy production',
+    sns.lineplot(data=df_jpn, x=x, y=y1, ax=ax2, color='brown', ci=None, label='fossil fuel electricity production',
                  legend=False)
-    sns.lineplot(data=df_jpn, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='Nuclear energy production',
+    sns.lineplot(data=df_jpn, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle('Nuclear energy production compared to CO2 emission in the electricity/heat sector for Japan',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for Japan',
                  fontsize=16)
-    plt.annotate('Fukushima', xy=(2011, 1.58), arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 xytext=(2008, 1.3))  # if wonky: try 2012
-    plt.annotate('Financial crisis', xy=(2008, 2.45),
-                 arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 xytext=(2006, 2.2))
+    plt.annotate('Fukushima', xy=(2011, 0.56), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2012, 0.9))  # if wonky: try 2012
+    plt.annotate('Financial crisis', xy=(2008, 0.87),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.3))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
     fig.tight_layout()
@@ -223,22 +201,14 @@ def plot3_jpn_abs(df):  # absolute Japan
     return
 
 
-def plot3_jpn_rel(df):  # done? -> look at explanation in comment below.
-    # Look at interesting points (JPN): you could see that from 2010 (shortly after fukushima had its major accident on
-    # 2011-03-11) the nuclear production went down immensely as the renewable energy production experienced a new surge
-    # while fossil fuel (combustion) energy production also declined over time. However, CO2 emissions from electricity
-    # and heat generation only started to decline from around 2013 onwards which may indicate more CO2 emissions due to
-    # procedures for heat generation (unlikey and note that the data for energy production specifically accounts
-    # electricity generation), or that a slow and steady decline in fossil fuel energy does not reflect that fast in co2
-    # emissions (??).
-
+def plot3_jpn_rel(df):
     # Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
     df_jpn = df.copy(deep=True)
     df_jpn = df_jpn[df_jpn['country'] == 'JPN']
 
     # loop for normalized values for a specific year
     year_ref = 2010
-    rel_list = ['fossil_production_btu', 'nuclear_prod_btu', 'renewables_prod_btu']
+    rel_list = ['prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable']
     for col in rel_list:
         ref_val = df_jpn[df_jpn['year'] == year_ref][col].values[0]  # ref value of year_ref
         df_jpn[col + '_rel_val'] = df_jpn[col] / ref_val  # create new column with normalized value to ref_val
@@ -247,89 +217,90 @@ def plot3_jpn_rel(df):  # done? -> look at explanation in comment below.
     df_bar = df[df['country'] == 'JPN']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots()
+    fig, ax1 = plt.subplots(figsize=[16, 9])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('CO2 Emissions (Mt)')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
 
-    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production co2 emissions')
+    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Energy production relative to %i' % year_ref)
-    sns.lineplot(data=df_jpn, x='year', y='nuclear_prod_btu_rel_val', ax=ax2, color='yellow',
-                 label='Nuclear energy production', legend=False)
-    # sns.lineplot(data=df_jpn, x='year', y='renewables_prod_btu_rel_val', ax=ax2, color='green',
-    #              ci=None, label='Renewables energy production', alpha=0.3, legend=False)
-    sns.lineplot(data=df_jpn, x='year', y='fossil_production_btu_rel_val', ax=ax2, color='brown',
-                 ci=None, label='Fossil fuel energy production', legend=False)
+    ax2.set_ylabel('electricity production relative to %i' % year_ref)
+    sns.lineplot(data=df_jpn, x='year', y='prod_electric_nuclear_rel_val', ax=ax2, color='yellow',
+                 label='nuclear electricity production', legend=False)
+    sns.lineplot(data=df_jpn, x='year', y='prod_electric_fossil_rel_val', ax=ax2, color='brown',
+                 ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(
-        'Energy production vs CO2 emission from electricity and heat in Japan')
-    plt.annotate('Fukushima', xy=(2011, 0.55), arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for Japan relative '
+                 'to ' + str(year_ref), fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 0.55), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2008, 0.3))  # if wonky: try 2012
     plt.annotate('Financial crisis', xy=(2008, 0.86),
-                 arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2006, 0.6))
     fig.tight_layout()
+    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
     plt.show()
     return
 
 
-def plot4_fra_abs(df):  # absolute France
-    # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production
-    # in France.
-
+def plot4_fra_abs(df):
     df_fra = df.copy(deep=True)
     df_fra = df_fra[df_fra['country'] == 'FRA']
 
     x = 'year'
-    y0 = 'renewables_prod_btu'
-    y1 = 'fossil_production_btu'
-    y2 = 'nuclear_prod_btu'
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
     y3 = 'Electricity/Heat'
 
     df_bar = df_fra[['year', 'Electricity/Heat']]
-    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every countryreset_index
+    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots()
-    # ax1.set_xlim(1990, 2018)
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('Emissions (Mt CO2)')
-    # sns.lineplot(data=df, x=x, y=y3, ax=ax1, color='green', ci=None,
-    # label='Annual electricity/heat production co2 emissions', legend=False)
-    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production co2 emissions')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Production (quad BTU)')
-    sns.lineplot(data=df_fra, x=x, y=y0, ax=ax2, color='green', ci=None, label='Renewables energy production', legend=False)
-    sns.lineplot(data=df_fra, x=x, y=y1, ax=ax2, color='brown', ci=None, label='Fossil fuel energy production',
+    ax2.set_ylabel('production in EJ')
+    sns.lineplot(data=df_fra, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
+                 alpha=0.4, legend=False)
+    sns.lineplot(data=df_fra, x=x, y=y1, ax=ax2, color='brown', ci=None, label='fossil fuel electricity production',
                  legend=False)
-    sns.lineplot(data=df_fra, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='Nuclear energy production', legend=False)
+    sns.lineplot(data=df_fra, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
+                 legend=False)
 
-    fig.suptitle('Nuclear energy production vs. CO2 emission in the electricity/heat sector', fontsize=16)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for France',
+                 fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 1.52), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2012, 1.3))  # if wonky: try 2012
+    plt.annotate('Financial crisis', xy=(2008, 1.51),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.3))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
     fig.tight_layout()
+    ax1.set_ylim(bottom=0, top=100)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
     plt.show()
     return
 
 
-def plot4_fra_rel(df):  # done? -> look at explanation in comment below.
-    # Look at interesting points (FRA): TODO new text
-    # Energy production by fossul fuel combustion decreased over time as nuclear energy production increased a little
-
+def plot4_fra_rel(df):
     # Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
     df_fra = df.copy(deep=True)
     df_fra = df_fra[df_fra['country'] == 'FRA']
 
     # loop for normalized values for a specific year
     year_ref = 2011
-    rel_list = ['fossil_production_btu', 'nuclear_prod_btu', 'renewables_prod_btu']
+    rel_list = ['prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable']
     for col in rel_list:
         ref_val = df_fra[df_fra['year'] == year_ref][col].values[0]  # ref value of year_ref
         df_fra[col + '_rel_val'] = df_fra[col] / ref_val  # create new column with normalized value to ref_val
@@ -338,63 +309,220 @@ def plot4_fra_rel(df):  # done? -> look at explanation in comment below.
     df_bar = df[df['country'] == 'FRA']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots()
-    # ax1.set_xlim(1990, 2017)
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('CO2 Emissions (Mt)')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
 
-    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.5, alpha=0.4, align='center',
-            label='Annual electricity/heat production co2 emissions')
+    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Energy production relative to %i' % year_ref)
-    sns.lineplot(data=df_fra, x='year', y='nuclear_prod_btu_rel_val', ax=ax2, color='yellow',
-                 label='Nuclear energy production', legend=False)
-    sns.lineplot(data=df_fra, x='year', y='renewables_prod_btu_rel_val', ax=ax2, color='green',
-                 ci=None, label='Renewables energy production', legend=False)
-    sns.lineplot(data=df_fra, x='year', y='fossil_production_btu_rel_val', ax=ax2, color='brown',
-                 ci=None, label='Fossil fuel energy production', legend=False)
+    ax2.set_ylabel('electricity production relative to %i' % year_ref)
+    sns.lineplot(data=df_fra, x='year', y='prod_electric_nuclear_rel_val', ax=ax2, color='yellow',
+                 label='nuclear electricity production', legend=False)
+    sns.lineplot(data=df_fra, x='year', y='prod_electric_fossil_rel_val', ax=ax2, color='brown',
+                 ci=None, label='fossil fuel electricity production', legend=False)
 
-    fig.legend(loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(
-        'Energy production vs CO2 emission from electricity and heat in France')
-    plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 xytext=(2012, 4))
-    plt.annotate('Financial crisis', xy=(2008, 0.98),
-                 arrowprops=dict(facecolor='navy', headwidth=10, width=5, headlength=10),
-                 horizontalalignment='left', verticalalignment='top',
-                 xytext=(2009, 3))
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for France relative '
+                 'to ' + str(year_ref), fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2009, 1.3))
+    plt.annotate('Financial crisis', xy=(2008, 0.99),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2006, 1.3))
     fig.tight_layout()
+    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
     plt.show()
     return
 
 
-def plot_4(df):  # TODO: plot interesting values from 1990 and 2017/2018 and display the growth (in percent, etc.)
-    # Look at a country with relative high co2 emissions, but little nuclear power production.
-    # Maybe visualize some of them and see how nuclear energy production influences those countries.
-    # e.g. high co2 emission countries --> high vs. low nuclear power production.
-    df_country = df[['year', 'country', 'consumption_co2', 'co2', 'nuclear_prod_btu']]
+def plot5_usa_abs(df):
+    # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production
+    # in the USA.
 
-    df_fra = df_country[df_country['country'] == 'IRN']
+    df_usa = df.copy(deep=True)
+    df_usa = df_usa[df_usa['country'] == 'USA']
 
-    fig, ax1 = plt.subplots()
-    fig.subplots_adjust(hspace=.5, wspace=.5)
-    # ax1.set_xlim(1990, 2018)
+    x = 'year'
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
+    y3 = 'Electricity/Heat'
 
-    ax1.set_xlabel('Year')
-    ax1.set_ylabel('Emissions (Mt CO2)')
-    plt.bar(x=df_fra['year'] + 0.7 / 2, height=df_fra['co2'], width=0.5, alpha=0.4, align='center',
-            label='Annual CO2 emission for Iran')
+    df_bar = df_usa[['year', 'Electricity/Heat']]
+    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
+
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-    ax2.set_ylabel('Consumption (quad BTU)')
-    sns.lineplot(data=df_fra, x=df_fra['year'], y=df_fra['nuclear_prod_btu'], ax=ax2, color='yellow',
-                 label='Nuclear energy production', legend=False)
+    ax2.set_ylabel('production in EJ')
+    sns.lineplot(data=df_usa, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
+                 alpha=0.4, legend=False)
+    sns.lineplot(data=df_usa, x=x, y=y1, ax=ax2, color='brown', ci=None, label='fossil fuel electricity production',
+                 legend=False)
+    sns.lineplot(data=df_usa, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
+                 legend=False)
 
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for USA',
+                 fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 2.84), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2009, 2))  # if wonky: try 2012
+    plt.annotate('Financial crisis', xy=(2008, 2.89),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 2))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
     fig.tight_layout()
+    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
+    plt.show()
+    return
+
+
+def plot5_usa_rel(df):
+    # Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
+    df_usa = df.copy(deep=True)
+    df_usa = df_usa[df_usa['country'] == 'USA']
+
+    # loop for normalized values for a specific year
+    year_ref = 2011
+    rel_list = ['prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable']
+    for col in rel_list:
+        ref_val = df_usa[df_usa['year'] == year_ref][col].values[0]  # ref value of year_ref
+        df_usa[col + '_rel_val'] = df_usa[col] / ref_val  # create new column with normalized value to ref_val
+
+    # fix so that barplot does not show different color for every country
+    df_bar = df[df['country'] == 'USA']
+    df_bar = df_bar.groupby(['year']).sum()
+
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+
+    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
+
+    ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+    ax2.set_ylabel('electricity production relative to %i' % year_ref)
+    sns.lineplot(data=df_usa, x='year', y='prod_electric_nuclear_rel_val', ax=ax2, color='yellow',
+                 label='nuclear electricity production', legend=False)
+    sns.lineplot(data=df_usa, x='year', y='prod_electric_fossil_rel_val', ax=ax2, color='brown',
+                 ci=None, label='fossil fuel electricity production', legend=False)
+
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for the USA relative '
+                 'to ' + str(year_ref), fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2009, 0.85))
+    plt.annotate('Financial crisis', xy=(2008, 1.02),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2006, 0.85))
+    fig.tight_layout()
+    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
+    plt.show()
+    return
+
+
+def plot6_chn_abs(df):
+    df_chn = df.copy(deep=True)
+    df_chn = df_chn[df_chn['country'] == 'CHN']
+
+    x = 'year'
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
+    y3 = 'Electricity/Heat'
+
+    df_bar = df_chn[['year', 'Electricity/Heat']]
+    df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
+
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+    plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
+
+    ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
+    ax2.set_ylabel('production in EJ')
+    sns.lineplot(data=df_chn, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
+                 alpha=0.4, legend=False)
+    sns.lineplot(data=df_chn, x=x, y=y1, ax=ax2, color='brown', ci=None, label='fossil fuel electricity production',
+                 legend=False)
+    sns.lineplot(data=df_chn, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
+                 legend=False)
+
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for China',
+                 fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 0.29), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2009, 2))  # if wonky: try 2012
+    plt.annotate('Financial crisis', xy=(2008, 0.24),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.7))
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+
+    fig.tight_layout()
+    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0)
+    plt.show()
+    return
+
+
+def plot6_chn_rel(df):
+    # Normalize energy production of nuclear energy and fossil fuels --> year ref 2013
+    df_chn = df.copy(deep=True)
+    df_chn = df_chn[df_chn['country'] == 'CHN']
+
+    # loop for normalized values for a specific year
+    year_ref = 2011
+    rel_list = ['prod_electric_fossil', 'prod_electric_nuclear', 'prod_electric_renewable']
+    for col in rel_list:
+        ref_val = df_chn[df_chn['year'] == year_ref][col].values[0]  # ref value of year_ref
+        df_chn[col + '_rel_val'] = df_chn[col] / ref_val  # create new column with normalized value to ref_val
+
+    # fix so that barplot does not show different color for every country
+    df_bar = df[df['country'] == 'CHN']
+    df_bar = df_bar.groupby(['year']).sum()
+
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    ax1.set_xlim(1990, 2017)
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+
+    plt.bar(x=df_bar.index, height=df_bar['Electricity/Heat'], width=0.75, alpha=0.4, align='center',
+            label=r'CO$_2$ emissions from electricity and heat generation')
+
+    ax2 = ax1.twinx()
+    ax2.set_ylabel('electricity production relative to %i' % year_ref)
+    sns.lineplot(data=df_chn, x='year', y='prod_electric_nuclear_rel_val', ax=ax2, color='yellow',
+                 label='nuclear electricity production', legend=False)
+    sns.lineplot(data=df_chn, x='year', y='prod_electric_fossil_rel_val', ax=ax2, color='brown',
+                 ci=None, label='fossil fuel electricity production', legend=False)
+
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emission for China relative '
+                 'to ' + str(year_ref), fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2008, 1.3))
+    plt.annotate('Financial crisis', xy=(2008, 0.79),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
+                 xytext=(2006, 1.2))
+    fig.tight_layout()
+    ax1.set_ylim(bottom=0)
+    ax2.set_ylim(bottom=0)
     plt.show()
     return
 
@@ -404,35 +532,29 @@ if __name__ == '__main__':
     df, desc = load_df()
 
     # Visualizations:
-    corr_matrix(df) #done
-    plot_pie(df)  # CO2 emission in the energy sector --> pie plot #done
-    plot1_world_abs(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
-    plot2_world_rel(df)  # Nuclear energy production vs CO2 emissions from electricity/ heat generation
-                          # (relative to a given year) with focus on important events (Chernobyl,
-                          # World Finance Crisis, Fukushima).
+    corr_matrix(df)
+    plot_pie(df)  # CO2 emission in the energy sector
+    plot1_world_abs(df)  # World - absolute
+    plot2_world_rel(df)  # World - relative
+
+    # Japan
+    print('Correlation matrix of Japan: ', corr(df, 'JPN'), sep='\n')
     plot3_jpn_abs(df)
-    plot3_jpn_rel(df)  # JPN focus on change after Fukushima
+    plot3_jpn_rel(df)
+
+    # China
+    print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
+    plot6_chn_abs(df)
+    plot6_chn_rel(df)
+
+    # France
+    print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
     plot4_fra_abs(df)
-    # plot4_fra_rel(df)   # TODO
-    # plot5_usa_abs(df)   # TODO
-    # plot5_usa_rel(df)   # TODO
-    # plot6_chn_abs(df)   # TODO
-    # plot6_chn_rel(df)   # TODO
+    plot4_fra_rel(df)
 
-    # plot_4(df)
+    # USA
+    print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
+    plot5_usa_abs(df)
+    plot5_usa_rel(df)
 
-    ########################################################
-    # Tests:
-    df_country = df[['year', 'country', 'fossil_production_btu', 'nuclear_prod_btu', 'renewables_prod_btu']]
-    # # df_country = df_country.groupby(['year', 'country']).sum()
-    #
-    # df_usa = df_country[df_country['country'] == 'USA']
-    # df_chn = df_country[df_country['country'] == 'CHN']
-    df_fra = df_country[df_country['country'] == 'FRA'].drop('country', axis=1)
-    df_fra80 = df_fra[df_fra['year'] == 1980]
-    df_fra18 = df_fra[df_fra['year'] == 2018]
-
-    ratio1 = df_fra18.iloc[0].divide(df_fra80.iloc[0])
-    print(ratio1)
-    # ratio.info()
     exit(0)
