@@ -52,11 +52,18 @@ def plot_pie(df):
     df1 = df1.groupby(['year']).sum()
 
     # Generate a sum of the columns respectively for a pie plot
+    fig, ax1 = plt.subplots(figsize=[16, 9])
     df1.loc['Total'] = df[
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
     df_pie.plot.pie(autopct="%.1f%%", title="Distribution of worldwide CO2 emissions in the energy sector", ylabel='')
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_plot_pie.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_plot_pie.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -109,8 +116,8 @@ def plot1_world_abs(df):
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_plot1.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_plot1.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2_plot_world_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_plot_world_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -198,6 +205,12 @@ def plot3_jpn_abs(df):
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_jpn_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_jpn_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -290,6 +303,12 @@ def plot4_fra_abs(df):
     ax1.set_ylim(bottom=0, top=100)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_fra_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_fra_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -385,6 +404,12 @@ def plot5_usa_abs(df):
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_usa_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_usa_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -477,6 +502,12 @@ def plot6_chn_abs(df):
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
     plt.show()
+
+    # Save plot as .pdf and .png
+    save = False
+    if save:
+        fig.savefig('../figures/q2_chn_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2_chn_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
