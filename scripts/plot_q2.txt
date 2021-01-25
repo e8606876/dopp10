@@ -68,6 +68,7 @@ plot5_usa_rel: Relative values - USA
 Additional plot to further visualize the change of electricity production by fossil fuels and nuclear energy relative to
 2011.
 
+
 plot6_chn_abs: Absolute values - CHN
 China is currently the country with the highest CO2 emissions per country when it comes to emissions in the energy
 sector. Additionally it is one of the countries with the steepest rise in nuclear energy production.
