@@ -20,8 +20,7 @@ df_energy = pd.read_csv('out2.csv', index_col=0)  # for faster testing
 dfs = []
 
 # Emission script
-df_emission = resize_emission(load_emission_data())
-df_emission.rename(columns={'country_code': 'country'}, inplace=True)
+df_emission = load_emission_data()
 dfs.append(df_emission)
 
 # Economy script
