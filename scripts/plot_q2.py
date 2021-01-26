@@ -33,12 +33,14 @@ def corr_matrix(df):
 
     df_heatmap = df.copy()
     df_heatmap = df_heatmap[df_heatmap['year'] >= year]
-    fig, ax = plt.subplots(figsize=[16, 9])
-    fig.suptitle('Correlation matrix of worldwide energy-related CO2 emissions and electricity production from '
-                 + str(year) + ' to 2018.', fontsize=16)
+    fig, ax = plt.subplots(figsize=[10, 6])
+    fig.suptitle(
+        r'Correlation matrix of worldwide energy-related CO$_2$ emissions' + '\n and electricity production from '
+        + str(year) + ' to 2018.', fontsize=16)
     sns.heatmap(df_heatmap.drop(['year', 'country'], axis=1).corr(method='pearson'), annot=True, cmap='coolwarm',
                 vmin=-1, vmax=1)
-    # plt.show()
+    plt.subplots_adjust(left=0.2, bottom=0.31)
+    plt.show()
     return
 
 
@@ -72,12 +74,12 @@ def plot_pie(df):
     df1 = df1.groupby(['year']).sum()
 
     # Generate a sum of the columns respectively for a pie plot
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     df1.loc['Total'] = df[
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
     df_pie.plot.pie(autopct="%.1f%%", title="Distribution of worldwide CO2 emissions in the energy sector", ylabel='')
-    # plt.show()
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -103,7 +105,7 @@ def plot1_world_abs(df):
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
     # Instantiate figure
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -119,7 +121,7 @@ def plot1_world_abs(df):
     sns.lineplot(data=df_line, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission - World', fontsize=16)
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions - World', fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 52), xytext=(2011, 58), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
@@ -131,7 +133,7 @@ def plot1_world_abs(df):
     fig.tight_layout()
     ax1.set_ylim(0, 17000)
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -153,7 +155,7 @@ def plot2_world_rel(df):
     df_bar = df[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -170,16 +172,16 @@ def plot2_world_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission relative to ' + str(year_ref) + ' - World',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissionsrelative to ' + str(year_ref) + ' - World',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 0.96), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2008, 0.8))  # if wonky: try 2012
+                 xytext=(2008, 0.8))
     plt.annotate('Financial crisis', xy=(2008, 0.99),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.1))
     fig.tight_layout()
     ax1.set_ylim(bottom=0)
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
     return
 
 
@@ -196,7 +198,7 @@ def plot3_jpn_abs(df):
     df_bar = df_jpn[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -213,10 +215,10 @@ def plot3_jpn_abs(df):
     sns.lineplot(data=df_jpn, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for Japan',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for Japan',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 0.56), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2012, 0.9))  # if wonky: try 2012
+                 xytext=(2012, 0.9))
     plt.annotate('Financial crisis', xy=(2008, 0.87),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.3))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
@@ -224,7 +226,7 @@ def plot3_jpn_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -250,7 +252,7 @@ def plot3_jpn_rel(df):
     df_bar = df[df['country'] == 'JPN']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -267,17 +269,17 @@ def plot3_jpn_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for Japan relative '
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for Japan relative '
                  'to ' + str(year_ref), fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 0.55), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2008, 0.3))  # if wonky: try 2012
+                 xytext=(2008, 0.3))
     plt.annotate('Financial crisis', xy=(2008, 0.86),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2006, 0.6))
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
-    ax2.set_ylim(bottom=0)
-    # plt.show()
+    ax2.set_ylim(bottom=0, top=1.4)
+    plt.show()
     return
 
 
@@ -294,7 +296,7 @@ def plot4_fra_abs(df):
     df_bar = df_fra[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -311,18 +313,18 @@ def plot4_fra_abs(df):
     sns.lineplot(data=df_fra, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for France',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for France',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 1.52), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2012, 1.3))  # if wonky: try 2012
+                 xytext=(2012, 1.3))
     plt.annotate('Financial crisis', xy=(2008, 1.51),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.3))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
     fig.tight_layout()
-    ax1.set_ylim(bottom=0, top=100)  # has to be here - after the fig was plotted
-    ax2.set_ylim(bottom=0)
-    # plt.show()
+    ax1.set_ylim(bottom=0, top=110)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0, top=2)
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -348,7 +350,7 @@ def plot4_fra_rel(df):
     df_bar = df[df['country'] == 'FRA']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -365,17 +367,17 @@ def plot4_fra_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for France relative '
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for France relative '
                  'to ' + str(year_ref), fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2009, 1.3))
+                 xytext=(2012, 1.3))
     plt.annotate('Financial crisis', xy=(2008, 0.99),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2006, 1.3))
     fig.tight_layout()
-    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
+    ax1.set_ylim(bottom=0, top=110)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
     return
 
 
@@ -395,7 +397,7 @@ def plot5_usa_abs(df):
     df_bar = df_usa[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -412,18 +414,18 @@ def plot5_usa_abs(df):
     sns.lineplot(data=df_usa, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for USA',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for USA',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 2.84), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2009, 2))  # if wonky: try 2012
+                 xytext=(2012, 4))
     plt.annotate('Financial crisis', xy=(2008, 2.89),
-                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 2))
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 4))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
 
     fig.tight_layout()
-    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
-    ax2.set_ylim(bottom=0)
-    # plt.show()
+    ax1.set_ylim(bottom=0, top=3600)  # has to be here - after the fig was plotted
+    ax2.set_ylim(bottom=0, top=13)
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -449,7 +451,7 @@ def plot5_usa_rel(df):
     df_bar = df[df['country'] == 'USA']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -466,17 +468,17 @@ def plot5_usa_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for the USA relative '
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for the USA relative '
                  'to ' + str(year_ref), fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2009, 0.85))
+                 xytext=(2012, 0.85))
     plt.annotate('Financial crisis', xy=(2008, 1.02),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2006, 0.85))
     fig.tight_layout()
-    ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
-    ax2.set_ylim(bottom=0)
-    # plt.show()
+    ax1.set_ylim(bottom=0, top=3500)
+    ax2.set_ylim(bottom=0, top=1.4)
+    plt.show()
     return
 
 
@@ -493,7 +495,7 @@ def plot6_chn_abs(df):
     df_bar = df_chn[['year', 'Electricity/Heat']]
     df_bar = df_bar.groupby(['year']).sum()  # otherwise, barplot shows different color for every country
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -510,10 +512,10 @@ def plot6_chn_abs(df):
     sns.lineplot(data=df_chn, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for China',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for China',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 0.29), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2009, 2))  # if wonky: try 2012
+                 xytext=(2012, 2))
     plt.annotate('Financial crisis', xy=(2008, 0.24),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8), xytext=(2006, 1.7))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
@@ -521,7 +523,7 @@ def plot6_chn_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
 
     # Save plot as .pdf and .png
     save = False
@@ -547,7 +549,7 @@ def plot6_chn_rel(df):
     df_bar = df[df['country'] == 'CHN']
     df_bar = df_bar.groupby(['year']).sum()
 
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[10, 6])
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
@@ -564,17 +566,17 @@ def plot6_chn_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emission for China relative '
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions for China relative '
                  'to ' + str(year_ref), fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 1), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
-                 xytext=(2008, 1.3))
+                 xytext=(2012, 0.7))
     plt.annotate('Financial crisis', xy=(2008, 0.79),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2006, 1.2))
     fig.tight_layout()
     ax1.set_ylim(bottom=0)
     ax2.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
     return
 
 
@@ -600,7 +602,7 @@ def poly_reg_nuclear(df):
     print("R^2 score for nuclear fit:", r2_score(y_pred=fxp, y_true=df_polyreg[y2]))
 
     # Instantiate figure
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[11, 6])
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
     ax1.set_ylabel('production in EJ')
@@ -610,17 +612,17 @@ def poly_reg_nuclear(df):
     sns.lineplot(x=x, y=fx, color='red', label='prediction', legend=False)
 
     fig.suptitle('Polynomial fit for electricity production - World', fontsize=16)
-    plt.annotate('Fukushima', xy=(2011, 9), xytext=(2009, 8.2), ha="center", va="center",
+    plt.annotate('Fukushima', xy=(2011, 9), xytext=(2011, 7.7), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
-    plt.annotate('Financial \n crisis', xy=(2008, 9.3), xytext=(2006, 8.5), ha="center", va="center",
+    plt.annotate('Financial \n crisis', xy=(2008, 9.3), xytext=(2008, 8), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
     fig.tight_layout()
     ax1.set_xlim(1979.5, 2018.5)
     ax1.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
     save = False
     if save:
         fig.savefig('../figures/q2/q2_poly_reg_nuclear.pdf', bbox_inches='tight')
@@ -654,7 +656,7 @@ def poly_reg_emission(df):
     print("R^2 score for emission fit:", r2_score(y_pred=fxp, y_true=df_polyreg[y3]))
 
     # Instantiate figure
-    fig, ax1 = plt.subplots(figsize=[16, 9])
+    fig, ax1 = plt.subplots(figsize=[11, 6])
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
     ax1.set_ylabel(r'emissions in Mt CO$_2$')
@@ -664,17 +666,17 @@ def poly_reg_emission(df):
     sns.lineplot(x=x, y=fx, color='red', label='prediction', legend=False)
 
     fig.suptitle(r'Polynomial fit of CO$_2$ emissions - World', fontsize=16)
-    plt.annotate('Fukushima', xy=(2011, 14650), xytext=(2011, 15620), ha="center", va="center",
+    plt.annotate('Fukushima', xy=(2011, 14650), xytext=(2011, 15600), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
-    plt.annotate('Financial \n crisis', xy=(2008, 13400), xytext=(2008, 14400), ha="center", va="center",
+    plt.annotate('Financial \n crisis', xy=(2008, 13400), xytext=(2008, 15300), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
     fig.tight_layout()
     ax1.set_xlim(1989.5, 2017.5)
     ax1.set_ylim(bottom=0)
-    # plt.show()
+    plt.show()
     save = False
     if save:
         fig.savefig('../figures/q2/q2_poly_reg_emission.pdf', bbox_inches='tight')
@@ -683,19 +685,20 @@ def poly_reg_emission(df):
 
 
 if __name__ == '__main__':
-    # Load dfs
+    # Load df
     df, desc = load_df()
     # Define parameters for relative growth
     start = 1990
     stop = 2017
     growth = rel_growth(df, start, stop)
 
+    # Visualizations:
 
     # Polynomial regression - fit for trends:
     poly_reg_nuclear(df)
     poly_reg_emission(df)
 
-    # Visualizations:
+    # Misc.
     corr_matrix(df)
     plot_pie(df)  # CO2 emission in the energy sector
     print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
@@ -707,11 +710,6 @@ if __name__ == '__main__':
     plot3_jpn_abs(df)
     plot3_jpn_rel(df)
 
-    # China
-    print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
-    plot6_chn_abs(df)
-    plot6_chn_rel(df)
-
     # France
     print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
     plot4_fra_abs(df)
@@ -722,5 +720,9 @@ if __name__ == '__main__':
     plot5_usa_abs(df)
     plot5_usa_rel(df)
 
+    # China
+    print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
+    plot6_chn_abs(df)
+    plot6_chn_rel(df)
 
     exit(0)
