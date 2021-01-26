@@ -32,26 +32,26 @@
 \sffamily
 \maketitle
 
-This is the Management Summary of the third exercise for the lecture \emph{Data-oriented Programming Paradigms} (188.995).  Question 20 was chosen by our group. The work was done equally by all collaborators of our group mentioned above. The aim of this document is to present the task, approach and findings of the investigations in a simple manner.
+This is the Management Summary of the third exercise for the lecture \emph{Data-oriented Programming Paradigms} (188.995).  Question 20 was chosen by our group. The work was divided equally between all members of the group. The aim of this document is to present the task, approach and findings of our investigations in a simple manner.
 
 \section{Topic}
 
-The goal of our data-science topic was to investigate the \emph{use of nuclear energy}, where the work was divided into three sections:
+The goal of our data-science topic was to analyze the \emph{use of nuclear energy}. Our findings were divided into three categories:
 
-First, we show how the constitution of different types of energy production has evolved over time and how the output of nuclear reactors changed in countries. Next, it was investigated if there is any connection between changes of CO$_2$ emissions and the usage of nuclear energy. In the third section, possible correlations of nuclear energy production with further characteristics of countries, like population or economical and political indicators were investigated.
+Initially, we showed how the constitution of different types of energy production has evolved over time and how the output of nuclear reactors changed in selected countries. Next, it was investigated if there is any connection between changes of CO$_2$ emissions and the usage of nuclear energy for electricity production. Finally, possible correlations of nuclear energy production with different characteristics of countries (e.g. population, economical and political indicators) were investigated.
 
 \section{Approach}
 
-For the key part of the data, which is the usage of energy in nations worldwide, there were two sources accessible: from the \emph{U.S. Energy Information Administration} (USEIA) and \emph{BP}. In a comparison of those to each other no discrepancies were found and we decided to use the USEIA dataset in the further analysis. 
+For the key part of the data, which is the usage of energy in nations worldwide, there were two sources accessible: from the \emph{U.S. Energy Information Administration} (USEIA) and \emph{BP}. Upon comparison no discrepancies were found between these two data sets and we decided to use the USEIA data set for further analysis. 
 The number of operating nuclear reactors were retrieved from the public section of PRIS (Power Reactor Information System) from the IAEA (International Atomic Energy Agency).
 
-Our investigation includes all available nations worldwide, in the time interval from 1980 to 2018. However, due the emergence of new countries (e.g. from the breakup of the USSR) and very sparse availability of some information at the beginning of this time interval, many comparisons only include the 20 years from 1998 to 2018. 
+Our investigation includes all available nations worldwide, in the time interval from 1980 to 2018. However, due to the emergence of new countries (e.g. from the breakup of the USSR) and very sparse availability of some information at the beginning of this time interval, many comparisons could only be conducted for a time span of 20 years from 1998 to 2018. 
 
 \section{Findings}
 
 \subsection{How has the use of nuclear energy evolved over time?}
 
-In Fig.~\ref{fig:q1_plot1} the evolution of energy production is shown. One can see that from 1980 to 2018, the total output worldwide doubled. The amount of nuclear energy in the constitution did not change dramatically. Although the produced nuclear energy more than doubled between 1980 and 2018, from 2000 there was almost no increase and it dropped after the Fukushima disaster in 2011.
+In Fig.~\ref{fig:q1_plot1} the evolution of energy production is shown. One can see that from 1980 to 2018, the total worldwide output doubled. The amount of nuclear energy in the constitution did not change dramatically. Although the production of nuclear energy more than doubled between 1980 and 2018, there was almost no increase from 2000 and it dropped after the Fukushima disaster in 2011.
 
 \begin{figure}[h]
 	\centering
@@ -60,40 +60,40 @@ In Fig.~\ref{fig:q1_plot1} the evolution of energy production is shown. One can 
  	\label{fig:q1_plot1}
 \end{figure}
 
-To compare the change of nuclear usage in different countries, in Fig.~\ref{fig:q2_plot2} the top 20 producers in the year 1998 and 2018 are shown. The largest increase in this time span can be seen for USA, Russia and China, whereas significant drops are observed in Japan, Germany and United Kingdom. One point that can be emphasized is that in the USA and Canada, there was a decrease of operating reactors, but an increase of energy output, which indicates that the size and workload (or efficiency) of their nuclear reactors was bigger in 2018 than in 1998.
+To compare the change of nuclear usage in different countries, in Fig.~\ref{fig:q2_plot2} the top 20 producers for 1998 and 2018 are shown. The largest increase in this time span can be seen for USA, Russia and China, whereas significant drops are observed in Japan, Germany and United Kingdom. One point that can be emphasized is that in the USA and Canada, there was a decrease of operating reactors, but an increase of energy output, which indicates that the size and workload (or efficiency) of their nuclear reactors was bigger in 2018 than in 1998.
 
-We also want to point out that no import or export of energy across nation borders could be investigated, because no public database contained information about that. Indeed this would have been very interesting for countries like Austria, that do not produce nuclear energy but depend on import of (electric) energy.
+We also want to point out that no import or export of energy across nation borders could be investigated, because of no public database containing such information. This would have been especially interesting for countries like Austria, which do not produce nuclear energy but depend on the import of (electric) energy.
 
 \begin{figure*}[t]
 	\centering
 	%\vspace{-1cm} % decrease space in necessary
 	\includegraphics[width=0.8\textwidth]{../figures/q1_plot2.pdf}
-	\caption{Largest producers of nuclear energy in 1998, compared to their produced nuclear energy in 2018.}
+	\caption{Largest producers of nuclear energy in 1998 compared to 2018.}
 	\label{fig:q2_plot2}
 \end{figure*}
 
 \subsection{How well does the use of nuclear energy correlate with changes in carbon emissions?}
-In Fig.~\ref{fig:q2_plot1} CO$_2$ emissions from electricity/ heat production are compared to the three main types of electricity generation (fossil fuels, renewables, nuclear energy) with focus on nuclear energy. It becomes apparent that fossil fuels correlate strongly and positively with emissions, since CO$_2$ is a direct product of fossil fuel combustion, while nuclear power plants primarily emit H$_2$O into the atmosphere with secondary CO$_2$ emissions through processing stages away from the plant. Investigation for specific countries with high nuclear energy and fossil fuel electricity production (e.g. Japan) further confirmed the claim that nuclear energy correlates very weakly to CO$_2$ emissions in comparison to fossil fuels. Two historic events, the finance crisis in 2008, as well as the Fukushima nuclear disaster in 2011 are annotated to show their impact on CO$_2$ emissions and electricity production.
+In Fig.~\ref{fig:q2_plot1} CO$_2$ emissions from electricity/ heat production are compared to the three main types of electricity generation (fossil fuels, renewables, nuclear energy) with focus on nuclear energy. It becomes apparent that fossil fuels correlate strongly and positively with emissions, since CO$_2$ is a direct side-product of fossil fuel combustion, while nuclear power plants primarily emit H$_2$O into the atmosphere with secondary CO$_2$ emissions through processing stages away from the plant. However, investigations of specific countries with high nuclear energy and fossil fuel electricity production (e.g. Japan) indicate that nuclear energy can have a strong negative correlation to changes in CO$_2$ emissions in comparison to fossil fuels. However, CO$_2$ are still mainly generated by combustion of fossil fuels in this sector. Two historic events, the finance crisis in 2008, as well as the Fukushima nuclear disaster in 2011 are annotated to show their impact on CO$_2$ emissions and electricity production.
 
 \begin{figure}[h]
 	\centering
  	\includegraphics[width=\columnwidth]{../figures/q2/q2_plot_world_abs.pdf}
- 	\caption{Worldwide CO$_2$ emissions in the electricity sector compared to the 3 main types of electricity production.}
+ 	\caption{Worldwide CO$_2$ emissions in the electricity sector compared to electricity production.}
  	\label{fig:q2_plot1}
 \end{figure}
 
 
 \subsection{Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?}
 
-The first property of nations that do or do not use nuclear energy that was investigated, was their population. The result, Fig.~\ref{fig:q3_population}, shows that since China started its first nuclear reactor in 1991, more than half of the worlds population lives in a country with active use of nuclear energy. The number of countries, however, that use nuclear energy is constant at about 30 from more than 200 nations worldwide. Although this graph does not show anything about the \emph{change of nuclear energy usage} because of the simple yes/no classification, it reveals that mostly large countries produce electricity by nuclear fission.
+At first correlations between nuclear energy and the population size of a country was investigated. The result, Fig.~\ref{fig:q3_population}, shows that since China started its first nuclear reactor in 1991, more than half of the worlds population lives in a country with active use of nuclear energy. However, the number of countries that use nuclear energy remains constant at around 30 out of 200+ nations worldwide. Although this graph does not provide information about the \emph{change of nuclear energy usage} restricted by its binary classification, it reveals that mostly large countries produce electricity by nuclear fission.
 
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=\columnwidth, trim=0 0 160mm 0, clip]{../figures/q3_population.pdf}
-	\caption{Change of worldwide population, split into countries that do or do not produce nuclear energy.}
+	\caption{Change of worldwide population, split into countries with and without nuclear energy production.}
 	\label{fig:q3_population}
 \end{figure}
 
-Further investigation was done by comparing the relative change of the nuclear energy production between 1998 and 2018 for each country to those of population, GDP (per capita), income (per capita), research expenditure, number of nuclear warheads and five democracy indices from the IDEA (International Institute for Democracy and Electoral Assistance): representative government, fundamental rights, checks on government, impartial administration and civil society participation. Unfortunately, no absolute correlations can be seen between these these indicators and nuclear usage, but by looking at single countries some interesting insight can be gained (see interactive plot in notebook).
+Further investigation was done by comparing the relative change of nuclear energy production between 1998 and 2018 for each country to changes of population, GDP (per capita), income (per capita), research expenditure, number of nuclear warheads and five democracy indices from the IDEA (International Institute for Democracy and Electoral Assistance): representative government, fundamental rights, checks on government, impartial administration and civil society participation. Unfortunately, no absolute correlations could be observed between these indicators and nuclear usage. However, by investigation of single countries some interesting insight could be gained (see interactive plot in notebook).
 
 \end{document}
