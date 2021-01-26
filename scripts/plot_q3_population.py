@@ -119,7 +119,7 @@ def plot_population_countries():
                    xy=(2008.5,ycoord),
                    xytext=(2008.5-15,ycoord-5),
                    ha='left', arrowprops=dict(arrowstyle='->'))
-    plt.savefig('../figures/q3_population.pdf', bbox_inches='tight')# , dpi=300)
+    plt.savefig('../figures/q3_population.png', dpi=500)
     plt.show()
     
     # print countries' years of first startup or last shutdown
