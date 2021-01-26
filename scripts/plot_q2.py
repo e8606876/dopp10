@@ -78,7 +78,7 @@ def plot_pie(df):
     df1.loc['Total'] = df[
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
-    df_pie.plot.pie(autopct="%.1f%%", title=r"Distribution of worldwide CO$_2$ emissions in the energy sector", ylabel='')
+    df_pie.plot.pie(autopct="%.1f%%", title=r'Distribution of worldwide CO$_2$ emissions in the energy sector', ylabel='')
     plt.show()
 
     # Save plot as .pdf and .png
@@ -696,34 +696,34 @@ if __name__ == '__main__':
     # Visualizations:
 
     # Polynomial regression - fit for trends:
-    # poly_reg_nuclear(df)
-    # poly_reg_emission(df)
-    #
-    # # Misc.
-    # corr_matrix(df)
-    # plot_pie(df)  # CO2 emission in the energy sector
-    # print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
+    poly_reg_nuclear(df)
+    poly_reg_emission(df)
+
+    # Misc.
+    corr_matrix(df)
+    plot_pie(df)  # CO2 emission in the energy sector
+    print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
     plot1_world_abs(df)  # World - absolute
-    # plot2_world_rel(df)  # World - relative
-    #
-    # # Japan
-    # print('Correlation matrix of Japan: ', corr(df, 'JPN'), sep='\n')
-    # plot3_jpn_abs(df)
-    # plot3_jpn_rel(df)
-    #
-    # # France
-    # print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
-    # plot4_fra_abs(df)
-    # plot4_fra_rel(df)
-    #
-    # # USA
-    # print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
-    # plot5_usa_abs(df)
-    # plot5_usa_rel(df)
-    #
-    # # China
-    # print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
-    # plot6_chn_abs(df)
-    # plot6_chn_rel(df)
+    plot2_world_rel(df)  # World - relative
+
+    # Japan
+    print('Correlation matrix of Japan: ', corr(df, 'JPN'), sep='\n')
+    plot3_jpn_abs(df)
+    plot3_jpn_rel(df)
+
+    # France
+    print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
+    plot4_fra_abs(df)
+    plot4_fra_rel(df)
+
+    # USA
+    print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
+    plot5_usa_abs(df)
+    plot5_usa_rel(df)
+
+    # China
+    print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
+    plot6_chn_abs(df)
+    plot6_chn_rel(df)
 
     exit(0)
