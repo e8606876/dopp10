@@ -1,10 +1,5 @@
 # dopp10
 
-NEXT MEETING: Sun 24.01. 18:00h
-
-https://tuwien.zoom.us/j/5172562790
-
-
 #Deliverables
 - [Jupyter notebook](group_10.ipynb)
 - [2-page summary](summary/summary.pdf)
@@ -16,6 +11,3 @@ https://tuwien.zoom.us/j/5172562790
 - 20.1. reserve time slot for final presentation
 - 27.1. 8:00h upload final hand-in (zip + presentation)
 - 27.1. presentation all groups
-
-# Problems
-
