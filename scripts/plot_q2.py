@@ -111,7 +111,7 @@ def plot1_world_abs(df):
     ax1.set_xlabel('year')
     ax1.set_ylabel(r'emissions in Mt CO$_2$')
     plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
-            label=r'CO$_2$ emissions from electricity and heat generation')
+            label=r'CO$_2$ emissions from electricity' + ' \n and heat generation')
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
     ax2.set_ylabel('production in EJ')
     sns.lineplot(data=df_line, x=x, y=y0, ax=ax2, color='green', ci=None, label='renewables electricity production',
@@ -121,25 +121,26 @@ def plot1_world_abs(df):
     sns.lineplot(data=df_line, x=x, y=y2, ax=ax2, color='yellow', ci=None, label='nuclear electricity production',
                  legend=False)
 
-    fig.suptitle(r'Electricity production compared to CO$_2$ emissions - World', fontsize=16)
-    plt.annotate('Fukushima', xy=(2011, 52), xytext=(2011, 58), ha="center", va="center",
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions - World', fontsize=14, y=0.87)
+    plt.annotate('Fukushima', xy=(2011, 53), xytext=(2011, 67), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
-    plt.annotate('Financial \n crisis', xy=(2008, 47.3), xytext=(2008, 53.), ha="center", va="center",
+    plt.annotate('Financial \n crisis', xy=(2008, 48), xytext=(2008, 58), ha="center", va="center",
                  bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
                  arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
     fig.tight_layout()
-    ax1.set_ylim(0, 17000)
-    ax2.set_ylim(bottom=0)
+    ax1.set_ylim(0, 19000)  # settings for summary
+    ax2.set_ylim(0, 70)  # settings for summary
+    plt.subplots_adjust(left=0.264, right=0.72, bottom=0.271)  # settings for summary
     plt.show()
 
-    # Save plot as .pdf and .png
+    # Save plot as .pdf and .png for summary
     save = False
     if save:
         fig.savefig('../figures/q2/q2_plot_world_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2/q2_plot_world_abs.png', bbox_inches='tight', dpi=300)
+        # fig.savefig('../figures/q2/q2_plot_world_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -695,34 +696,34 @@ if __name__ == '__main__':
     # Visualizations:
 
     # Polynomial regression - fit for trends:
-    poly_reg_nuclear(df)
-    poly_reg_emission(df)
-
-    # Misc.
-    corr_matrix(df)
-    plot_pie(df)  # CO2 emission in the energy sector
-    print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
+    # poly_reg_nuclear(df)
+    # poly_reg_emission(df)
+    #
+    # # Misc.
+    # corr_matrix(df)
+    # plot_pie(df)  # CO2 emission in the energy sector
+    # print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
     plot1_world_abs(df)  # World - absolute
-    plot2_world_rel(df)  # World - relative
-
-    # Japan
-    print('Correlation matrix of Japan: ', corr(df, 'JPN'), sep='\n')
-    plot3_jpn_abs(df)
-    plot3_jpn_rel(df)
-
-    # France
-    print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
-    plot4_fra_abs(df)
-    plot4_fra_rel(df)
-
-    # USA
-    print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
-    plot5_usa_abs(df)
-    plot5_usa_rel(df)
-
-    # China
-    print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
-    plot6_chn_abs(df)
-    plot6_chn_rel(df)
+    # plot2_world_rel(df)  # World - relative
+    #
+    # # Japan
+    # print('Correlation matrix of Japan: ', corr(df, 'JPN'), sep='\n')
+    # plot3_jpn_abs(df)
+    # plot3_jpn_rel(df)
+    #
+    # # France
+    # print('Correlation matrix of France: ', corr(df, 'FRA'), sep='\n')
+    # plot4_fra_abs(df)
+    # plot4_fra_rel(df)
+    #
+    # # USA
+    # print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
+    # plot5_usa_abs(df)
+    # plot5_usa_rel(df)
+    #
+    # # China
+    # print('Correlation matrix of China: ', corr(df, 'CHN'), sep='\n')
+    # plot6_chn_abs(df)
+    # plot6_chn_rel(df)
 
     exit(0)

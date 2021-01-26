@@ -38,7 +38,7 @@ This is the Management Summary of the third exercise for the lecture \emph{Data-
 
 The goal of our data-science topic was to investigate the \emph{use of nuclear energy}, where the work was divided into three sections:
 
-First, we show how the constitution of different types of electricity production has evolved over time and how the output of nuclear reactors changed in countries. Next, it was investigated if there if any connection between changes of greenhouse gas emissions and the usage of nuclear energy. In the third section, possible correlations of nuclear energy production with further characteristics of countries, like population or economical and political indicators were investigated.
+First, we show how the constitution of different types of electricity production has evolved over time and how the output of nuclear reactors changed in countries. Next, it was investigated if there is any connection between changes of CO$_2$ emissions and the usage of nuclear energy. In the third section, possible correlations of nuclear energy production with further characteristics of countries, like population or economical and political indicators were investigated.
 
 \section{Approach}
 
@@ -60,7 +60,7 @@ In Fig.~\ref{fig:q1_plot1} the evolution of electricity production is shown. One
  	\label{fig:q1_plot1}
 \end{figure}
 
-To compare the change of nuclear usage in different countries, in Fig.~\ref{fig:q2_plot2} the top 20 producers in the year 1998 and 2018 are shown. The largest increase in this time span can be seen for USA, Russia and China, whereas significant drops are observed in Japan, Germany and United Kingdom. One point that can be emphasized is that in the USA and Canada, there was a decrease of operating reactors, but an increase of energy output, which indicates that the size and workload (or efficiency) of their nuclear reactors was in bigger in 2018 than in 1998.
+To compare the change of nuclear usage in different countries, in Fig.~\ref{fig:q2_plot2} the top 20 producers in the year 1998 and 2018 are shown. The largest increase in this time span can be seen for USA, Russia and China, whereas significant drops are observed in Japan, Germany and United Kingdom. One point that can be emphasized is that in the USA and Canada, there was a decrease of operating reactors, but an increase of energy output, which indicates that the size and workload (or efficiency) of their nuclear reactors was bigger in 2018 than in 1998.
 
 We also want to point out that no import or export of electricity across nation borders could be investigated, because no public database contained information about that. Indeed this would have been very interesting for countries like Austria, that do not produce nuclear energy but depend on import of electric energy.
 
@@ -73,7 +73,14 @@ We also want to point out that no import or export of electricity across nation 
 \end{figure*}
 
 \subsection{How well does the use of nuclear energy correlate with changes in carbon emissions?}
+In Fig.~\ref{fig:q2_plot1} CO$_2$ emissions from electricity/ heat production are compared to the three main types of electricity generation (fossil fuels, renewables, nuclear energy) with focus on nuclear energy. It becomes apparent that fossil fuels correlate strongly and positively with emissions, since CO$_2$ is a direct product of fossil fuel combustion, while nuclear power plants primarily emit H$_2$O into the atmosphere with secondary CO$_2$ emissions through processing stages away from the plant. Investigation for specific countries with high nuclear energy and fossil fuel electricity production (e.g. Japan) further confirmed the claim that nuclear energy correlates very weakly to CO$_2$ emissions in comparison to fossil fuels. Two historic events, the finance crisis in 2008, as well as the Fukushima nuclear disaster in 2011 are annotated to show their impact on CO$_2$ emissions and electricity production.
 
+\begin{figure}[h]
+	\centering
+ 	\includegraphics[width=\columnwidth]{../figures/q2/q2_plot_world_abs.pdf}
+ 	\caption{Worldwide CO$_2$ emissions in the electricity sector compared to the 3 main types of electricity production.}
+ 	\label{fig:q2_plot1}
+\end{figure}
 
 
 \subsection{Are there characteristics of a country that correlate with increases or decreases in the use of nuclear energy?}
