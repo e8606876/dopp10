@@ -78,7 +78,7 @@ def plot_pie(df):
     df1.loc['Total'] = df[
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
-    df_pie.plot.pie(autopct="%.1f%%", title="Distribution of worldwide CO2 emissions in the energy sector", ylabel='')
+    df_pie.plot.pie(autopct="%.1f%%", title=r"Distribution of worldwide CO$_2$ emissions in the energy sector", ylabel='')
     plt.show()
 
     # Save plot as .pdf and .png
@@ -173,7 +173,7 @@ def plot2_world_rel(df):
                  ci=None, label='fossil fuel electricity production', legend=False)
 
     fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
-    fig.suptitle(r'Electricity production compared to CO$_2$ emissionsrelative to ' + str(year_ref) + ' - World',
+    fig.suptitle(r'Electricity production compared to CO$_2$ emissions relative to ' + str(year_ref) + ' - World',
                  fontsize=16)
     plt.annotate('Fukushima', xy=(2011, 0.96), arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8),
                  xytext=(2008, 0.8))
