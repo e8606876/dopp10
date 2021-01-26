@@ -10,11 +10,11 @@ electricity/ heat generation contributes to around half (47%) of total CO2 emiss
 production by fossil fuel combustion being the main contributor.
 
 plot1_world_abs: Absolute values - World
-Absolute values of the 3 main categories of electricity production compared to electricity and heat generation-related CO2 emissions
-per year. The plot shows that electricity production by fossil fuel combustion (mainly coal, gas, oil) correlates very well with CO2 emission in the electricity/ heat
-sector, since energy production by renewables or through nuclear fission generate only a very small indirect amount of
-CO2 emissions compared to fossil fuel energy production. The nuclear reactor incident and world financial crisis of 2008
-have been annotated and are further investigated.
+Absolute values of the 3 main categories of electricity production compared to electricity and heat generation-related
+CO2 emissions per year. The plot shows that electricity production by fossil fuel combustion (mainly coal, gas, oil)
+correlates very well with CO2 emission in the electricity/ heat sector, since energy production by renewables or through
+nuclear fission generate only a very small indirect amount of CO2 emissions compared to fossil fuel energy production.
+The nuclear reactor incident and world financial crisis of 2008 have been annotated and are further investigated.
 
 plot2_world_rel: Relative to year 2010 - World
 Annual electricity/ heat generation global CO2 emissions are plotted in comparison to electricity production by fossil fuels
@@ -84,3 +84,27 @@ nuclear reactor accident, electricity production by nuclear energy rises as the 
 fossil fuels takes a small bend. The steep rise of nuclear energy (as well as the increase of production by renewables)
 might be a good indicator to why CO2 emissions began to decrease 2011 til around 2016.
 
+
+poly_reg_nuclear: polynomial regression with degree 2 - R^2 score: 0.9820348464528007
+Polynomial regression for the trend of nuclear energy electricity production worldwide. Due to the high R2 score the
+prediction acts as a good fit for the actual data. It shows that usage of nuclear energy tends to decrease over time
+having its peak at around 2007. The financial crisis as well as the disaster event in Fukushima seem to be two of the
+main reasons for this result. It should be noted that when looking at the data from 2012 onwards nuclear energy tends
+to rise linearly, while the prediction correlates negatively with the actual values from the dataset. Therefore, while
+the prediction indicates a general decline in nuclear energy in electricity production, we can expect more usage and
+development in nuclear energy usage for electricity generation in the future.
+
+poly_reg_emission: polynomial regression with degree 2 - R^2 score: 0.9719937093947953
+Polynomial regression for the trend of CO2 emission from the electricity/heat generation worldwide. Even setting the
+polynomial degree to 2, the regression yields a nearly perfect linear prediction. It can be seen that the event in 2008
+seems to have reduced the increase of CO2 emissions worldwide (there is an indication for increase in emissions up until
+2007 when looking at the plot and the dataset).
+
+
+Conclusion: While electricity production by nuclear energy has developed over the past couple of years and contribute to
+a more 'CO2-emission-free' future, CO2 emissions by electricity/ heat production are mainly caused by means of fossil
+fuel combustion (coal, oil, gas). CO2 emissions caused by the electricity/ heat sector increased by around 75%,
+electricity production from fossil fuels increased by around 187% and from nuclear energy by around 62% in a time span
+from 1990 to 2017. The prediction model for nuclear energy indicates a decrease for the future, while it is important to
+focus on the time span between 2012 and today, where there is an indication in a new (linear) increase of nuclear energy
+usage in the electricity sector.

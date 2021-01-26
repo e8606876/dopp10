@@ -2,6 +2,11 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import PolynomialFeatures
+
 
 def load_df():
     """Load data_merged and data_electrical and merge into a pandas dataframe."""
@@ -33,7 +38,7 @@ def corr_matrix(df):
                  + str(year) + ' to 2018.', fontsize=16)
     sns.heatmap(df_heatmap.drop(['year', 'country'], axis=1).corr(method='pearson'), annot=True, cmap='coolwarm',
                 vmin=-1, vmax=1)
-    plt.show()
+    # plt.show()
     return
 
 
@@ -42,6 +47,21 @@ def corr(df, country):
                      'Electricity/Heat']]
     df_country_corr = df_country[df_country['country'] == str(country)].drop(['country', 'year'], axis=1).corr()
     return df_country_corr
+
+
+def rel_growth(df, start, stop):
+    # Emission script
+    df_e = df[['year', 'country', 'Electricity/Heat', 'prod_electric', 'prod_electric_nuclear', 'prod_electric_fossil',
+               'prod_electric_renewable']]
+    df_yearly = df_e.groupby(['year']).sum()  # Sum over all countries for a given year.
+    # Only take production feature.
+    features = [feature for feature in df_yearly.columns]
+    df_yearly = df_yearly[features]
+    df_yearly.sort_index(inplace=True)
+
+    # compare relative growth in % between first and last year
+    growth = (df_yearly.loc[stop] / df_yearly.loc[start] - 1) * 100
+    return growth
 
 
 def plot_pie(df):
@@ -57,13 +77,13 @@ def plot_pie(df):
         ['Electricity/Heat', 'Transportation', 'Manufacturing/Construction', 'Other', 'Fugitive Emissions']].sum()
     df_pie = df1.loc['Total'].T
     df_pie.plot.pie(autopct="%.1f%%", title="Distribution of worldwide CO2 emissions in the energy sector", ylabel='')
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_plot_pie.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_plot_pie.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_plot_pie.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_plot_pie.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -87,7 +107,7 @@ def plot1_world_abs(df):
     ax1.set_xlim(1990, 2017)
     sns.set_style('whitegrid')
     ax1.set_xlabel('year')
-    ax1.set_ylabel(r'emissions in Mt CO$_2$')  # TODO
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
     plt.bar(x=df_bar.index, height=df_bar[y3], width=0.75, alpha=0.4, align='center',
             label=r'CO$_2$ emissions from electricity and heat generation')
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
@@ -111,13 +131,13 @@ def plot1_world_abs(df):
     fig.tight_layout()
     ax1.set_ylim(0, 17000)
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_plot_world_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_plot_world_abs.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_plot_world_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_plot_world_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -159,7 +179,7 @@ def plot2_world_rel(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
     return
 
 
@@ -204,13 +224,13 @@ def plot3_jpn_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_jpn_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_jpn_abs.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_jpn_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_jpn_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -257,7 +277,7 @@ def plot3_jpn_rel(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
     return
 
 
@@ -302,13 +322,13 @@ def plot4_fra_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0, top=100)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_fra_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_fra_abs.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_fra_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_fra_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -355,7 +375,7 @@ def plot4_fra_rel(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
     return
 
 
@@ -403,13 +423,13 @@ def plot5_usa_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_usa_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_usa_abs.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_usa_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_usa_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -456,7 +476,7 @@ def plot5_usa_rel(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
     return
 
 
@@ -501,13 +521,13 @@ def plot6_chn_abs(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)  # has to be here - after the fig was plotted
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
 
     # Save plot as .pdf and .png
     save = False
     if save:
-        fig.savefig('../figures/q2_chn_abs.pdf', bbox_inches='tight')
-        fig.savefig('../figures/q2_chn_abs.png', bbox_inches='tight', dpi=300)
+        fig.savefig('../figures/q2/q2_chn_abs.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_chn_abs.png', bbox_inches='tight', dpi=300)
     return
 
 
@@ -554,17 +574,131 @@ def plot6_chn_rel(df):
     fig.tight_layout()
     ax1.set_ylim(bottom=0)
     ax2.set_ylim(bottom=0)
-    plt.show()
+    # plt.show()
+    return
+
+
+def poly_reg_nuclear(df):
+    # Polynomial fit of nuclear energy for the world
+    y2 = 'prod_electric_nuclear'
+
+    # Aggregate
+    df_polyreg = df.drop('country', axis=1).groupby(['year']).sum().reset_index()
+
+    # Regression
+    poly = PolynomialFeatures(degree=2, include_bias=True)
+    poly.fit_transform(df_polyreg[['year']])
+
+    poly_model = LinearRegression(fit_intercept=True)
+    poly_model.fit(poly.fit_transform(df_polyreg[['year']]), df_polyreg[y2])
+
+    x = np.linspace(df_polyreg['year'].min(), df_polyreg['year'].max(), 1000)
+    fx = poly_model.predict(poly.fit_transform(pd.DataFrame(x)))
+
+    # R2 score
+    fxp = poly_model.predict(poly.fit_transform(df_polyreg[['year']]))
+    print("R^2 score for nuclear fit:", r2_score(y_pred=fxp, y_true=df_polyreg[y2]))
+
+    # Instantiate figure
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel('production in EJ')
+
+    sns.scatterplot(data=df_polyreg, x='year', y=y2, color='blue', ci=None,
+                    label='nuclear energy electricity production', legend=False)
+    sns.lineplot(x=x, y=fx, color='red', label='prediction', legend=False)
+
+    fig.suptitle('Polynomial fit for electricity production - World', fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 9), xytext=(2009, 8.2), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+    plt.annotate('Financial \n crisis', xy=(2008, 9.3), xytext=(2006, 8.5), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+    fig.tight_layout()
+    ax1.set_xlim(1979.5, 2018.5)
+    ax1.set_ylim(bottom=0)
+    # plt.show()
+    save = False
+    if save:
+        fig.savefig('../figures/q2/q2_poly_reg_nuclear.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_poly_reg_nuclear.png', bbox_inches='tight', dpi=300)
+    return
+
+
+def poly_reg_emission(df):
+    # How well does the use of nuclear energy correlate with changes in carbon emissions in heat/electricity production.
+    y0 = 'prod_electric_renewable'
+    y1 = 'prod_electric_fossil'
+    y2 = 'prod_electric_nuclear'
+    y3 = 'Electricity/Heat'
+
+    # Aggregate for lineplots
+    df_polyreg = df.drop('country', axis=1).groupby(['year']).sum().reset_index()
+    df_polyreg = df_polyreg[(df_polyreg['year'] >= 1990) & (df_polyreg['year'] < 2018)]
+
+    # Regression
+    poly = PolynomialFeatures(degree=2, include_bias=True)
+    poly.fit_transform(df_polyreg[['year']])
+
+    poly_model = LinearRegression(fit_intercept=True)
+    poly_model.fit(poly.fit_transform(df_polyreg[['year']]), df_polyreg[y3])
+
+    x = np.linspace(df_polyreg['year'].min(), df_polyreg['year'].max(), 1000)
+    fx = poly_model.predict(poly.fit_transform(pd.DataFrame(x)))
+
+    # R2 score
+    fxp = poly_model.predict(poly.fit_transform(df_polyreg[['year']]))
+    print("R^2 score for emission fit:", r2_score(y_pred=fxp, y_true=df_polyreg[y3]))
+
+    # Instantiate figure
+    fig, ax1 = plt.subplots(figsize=[16, 9])
+    sns.set_style('whitegrid')
+    ax1.set_xlabel('year')
+    ax1.set_ylabel(r'emissions in Mt CO$_2$')
+
+    sns.scatterplot(data=df_polyreg, x='year', y=y3, color='blue', ci=None,
+                    label=r'CO$_2$ emissions from electricity and heat generation', legend=False)
+    sns.lineplot(x=x, y=fx, color='red', label='prediction', legend=False)
+
+    fig.suptitle(r'Polynomial fit of CO$_2$ emissions - World', fontsize=16)
+    plt.annotate('Fukushima', xy=(2011, 14650), xytext=(2011, 15620), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+    plt.annotate('Financial \n crisis', xy=(2008, 13400), xytext=(2008, 14400), ha="center", va="center",
+                 bbox=dict(facecolor='none', edgecolor='black', boxstyle='round'),
+                 arrowprops=dict(facecolor='black', headwidth=8, width=3, headlength=8))
+    fig.legend(loc="upper left", bbox_to_anchor=(0, 1), bbox_transform=ax1.transAxes)
+    fig.tight_layout()
+    ax1.set_xlim(1989.5, 2017.5)
+    ax1.set_ylim(bottom=0)
+    # plt.show()
+    save = False
+    if save:
+        fig.savefig('../figures/q2/q2_poly_reg_emission.pdf', bbox_inches='tight')
+        fig.savefig('../figures/q2/q2_poly_reg_emission.png', bbox_inches='tight', dpi=300)
     return
 
 
 if __name__ == '__main__':
     # Load dfs
     df, desc = load_df()
+    # Define parameters for relative growth
+    start = 1990
+    stop = 2017
+    growth = rel_growth(df, start, stop)
+
+
+    # Polynomial regression - fit for trends:
+    poly_reg_nuclear(df)
+    poly_reg_emission(df)
 
     # Visualizations:
     corr_matrix(df)
     plot_pie(df)  # CO2 emission in the energy sector
+    print('Relative growth in percent from ' + str(start) + ' to ' + str(stop) + ':', growth, sep='\n')
     plot1_world_abs(df)  # World - absolute
     plot2_world_rel(df)  # World - relative
 
@@ -587,5 +721,6 @@ if __name__ == '__main__':
     print('Correlation matrix of the USA: ', corr(df, 'USA'), sep='\n')
     plot5_usa_abs(df)
     plot5_usa_rel(df)
+
 
     exit(0)
